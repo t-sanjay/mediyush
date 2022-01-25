@@ -1,1 +1,104 @@
-<p>admin-dashboard works!</p>
+<app-menu [activeState]="'Home'"></app-menu>
+<div class="">
+  <div class="container">
+    <div class="grid flex justify-content-center flex-wrap">
+      <!-- courses -->
+      <div
+        class="col-12 md:col-6 lg:col-6 sm:col-12 flex align-items-center justify-content-center mt-5 px-5"
+      >
+        <p-card
+          [routerLink]="['courses-admin']"
+          header="Courses"
+          [style]="{ width: '350px' }"
+          styleClass="p-card-shadow"
+          value="courses"
+          subheader="Add, Update, Delete Courses"
+        >
+          <ng-template pTemplate="header">
+            <img alt="Card" src="assets/images/books.jpg" />
+          </ng-template>
+        </p-card>
+      </div>
+
+      <!-- booking -->
+      <div
+        class="col-12 md:col-6 lg:col-6 sm:col-12 flex align-items-center justify-content-center mt-5 px-3"
+      >
+        <p-card
+          header="Booking"
+          subheader="Add, Update, Delete Bookings"
+          [style]="{ width: '350px' }"
+          styleClass="p-card-shadow"
+        >
+          <ng-template pTemplate="header">
+            <img alt="Card" src="assets/images/calendar.jpg" />
+          </ng-template>
+        </p-card>
+      </div>
+
+      <!-- User details  -->
+      <div
+        class="col-12 md:col-6 lg:col-6 sm:col-12 flex align-items-center justify-content-center mt-5 px-3"
+      >
+        <p-card
+          header="Courses"
+          subheader="Add, Update, Delete User Details"
+          [style]="{ width: '350px' }"
+          styleClass="p-card-shadow"
+        >
+          <ng-template pTemplate="header">
+            <img alt="Card" src="assets/images/users.jpg" />
+          </ng-template>
+        </p-card>
+      </div>
+
+      <!-- doctors -->
+      <div
+        class="col-12 md:col-6 lg:col-6 sm:col-12 flex align-items-center justify-content-center mt-5 px-3"
+      >
+        <p-card
+          header="Doctors"
+          subheader="Add, Update, Delete Doctors"
+          [style]="{ width: '350px' }"
+          styleClass="p-card-shadow"
+        >
+          <ng-template pTemplate="header">
+            <img alt="Card" src="assets/images/doc.jpg" />
+          </ng-template>
+        </p-card>
+      </div>
+
+      <!-- ads -->
+      <div
+        class="col-12 md:col-6 lg:col-6 sm:col-12 flex align-items-center justify-content-center mt-5 px-3"
+      >
+        <p-card
+          header="Ads"
+          subheader="Add, Update, Delete Advertisement"
+          [style]="{ width: '350px' }"
+          styleClass="p-card-shadow"
+        >
+          <ng-template pTemplate="header">
+            <img alt="Card" src="assets/images/ads.jpg" />
+          </ng-template>
+        </p-card>
+      </div>
+
+      <!-- blogs -->
+      <div
+        class="col-12 md:col-6 lg:col-6 sm:col-12 flex align-items-center justify-content-center mt-5 px-3"
+      >
+        <p-card
+          header="Blogs"
+          subheader="Add, Update, Delete Blogs"
+          [style]="{ width: '350px' }"
+          styleClass="p-card-shadow"
+        >
+          <ng-template pTemplate="header">
+            <img alt="Card" src="assets/images/blog.jpg" />
+          </ng-template>
+        </p-card>
+      </div>
+    </div>
+  </div>
+</div>

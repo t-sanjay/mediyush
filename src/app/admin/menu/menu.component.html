@@ -1,0 +1,109 @@
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col">
+        <a class="navbar-brand" href="index.html"
+          >Papermag <span>Magazine</span></a
+        >
+      </div>
+      <div class="col d-flex justify-content-end">
+        <div class="social-media">
+          <p class="mb-0 d-flex">
+            <a class="d-flex align-items-center justify-content-center"
+              ><span class="fa fa-facebook"
+                ><i class="sr-only">Facebook</i></span
+              ></a
+            >
+            <a class="d-flex align-items-center justify-content-center"
+              ><span class="fa fa-twitter"
+                ><i class="sr-only">Twitter</i></span
+              ></a
+            >
+            <a class="d-flex align-items-center justify-content-center"
+              ><span class="fa fa-instagram"
+                ><i class="sr-only">Instagram</i></span
+              ></a
+            >
+            <a class="d-flex align-items-center justify-content-center"
+              ><span class="fa fa-dribbble"
+                ><i class="sr-only">Dribbble</i></span
+              ></a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav
+    class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+    id="ftco-navbar"
+  >
+    <div class="container">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#ftco-nav"
+        aria-controls="ftco-nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="fa fa-bars" (click)="showMenu()"></span> Menu
+      </button>
+      <div
+        class="collapse navbar-collapse"
+        [ngClass]="{ show: showMenuFlag }"
+        id="ftco-nav"
+      >
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item" [ngClass]="{ active: activeState === 'Home' }">
+            <a class="nav-link" [routerLink]="['/dashboard-admin']">Home</a>
+          </li>
+          <li
+            class="nav-item"
+            [ngClass]="{ active: activeState === 'Courses' }"
+          >
+            <a
+              class="nav-link"
+              [routerLink]="['/dashboard-admin/courses-admin']"
+              >Courses</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            class="nav-item"
+            [ngClass]="{ active: activeState === 'Booking' }"
+          >
+            <a class="nav-link">Booking</a>
+          </li>
+          <li class="nav-item"><a class="nav-link">Users</a></li>
+          <li class="nav-item"><a class="nav-link">Doctors</a></li>
+          <li class="nav-item"><a class="nav-link">Ads</a></li>
+          <li class="nav-item"><a class="nav-link">Blogs</a></li>
+        </ul>
+        <div class="row">
+          <button
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-user"
+            class="p-button-rounded p-button-success"
+            pTooltip="Profile"
+            tooltipPosition="bottom"
+          ></button>
+          <button
+            (click)="signOut()"
+            pButton
+            pRipple
+            type="button"
+            icon="pi pi-sign-out"
+            pTooltip="Sign-Out"
+            tooltipPosition="bottom"
+            class="p-button-rounded p-button-danger ml-3"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <!-- END nav -->
+</section>

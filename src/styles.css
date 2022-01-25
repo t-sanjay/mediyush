@@ -9,3 +9,7 @@ html {
   height: 100%;
   font-family: "Poppins", sans-serif;
 }
+
+.p-button-success {
+  background-color: #f1bc31 !important;
+}

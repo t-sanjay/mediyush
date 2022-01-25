@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from '../_services/auth.service';
 
@@ -11,7 +12,11 @@ import { AuthService } from '../_services/auth.service';
 })
 export class SignupComponent implements OnInit {
   signUpForm: FormGroup;
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -29,9 +34,21 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.signUp(
-      this.signUpForm.value.email,
-      this.signUpForm.value.password
-    );
+    this.authService
+      .signUp(this.signUpForm.value.email, this.signUpForm.value.password)
+      .then((result) => {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Sign-up Successful, You are redirected to sign in page!!',
+        });
+        this.authService.setUserData(result.user);
+        this.router.navigateByUrl('sign-in');
+      })
+      .catch((error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: error.message,
+        });
+      });
   }
 }
