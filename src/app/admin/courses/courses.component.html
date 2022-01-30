@@ -1,4 +1,8 @@
+<p-dialog header="Title" [(visible)]="addCourseDisplay">
+  <app-add-courses></app-add-courses>
+</p-dialog>
 <app-menu [activeState]="'Courses'"></app-menu>
+
 <div class="container my-5">
   <div class="right">
     <button
@@ -40,13 +44,13 @@
         <tr>
           <th style="width: 3rem"></th>
           <th pSortableColumn="name">
-            Name <p-sortIcon field="name"></p-sortIcon>
+            Course Name <p-sortIcon field="name"></p-sortIcon>
           </th>
           <th pSortableColumn="country.name">
-            Country <p-sortIcon field="country.name"></p-sortIcon>
+            Category <p-sortIcon field="country.name"></p-sortIcon>
           </th>
           <th pSortableColumn="representative.name">
-            Representative <p-sortIcon field="representative.name"></p-sortIcon>
+            Host <p-sortIcon field="representative.name"></p-sortIcon>
           </th>
           <th pSortableColumn="date">
             Date <p-sortIcon field="date"></p-sortIcon>
@@ -62,7 +66,7 @@
             <p-checkbox name="groupname" value="val1"></p-checkbox>
           </td>
           <td>
-            <span class="p-column-title">Name</span>
+            <span class="p-column-title">Course Name</span>
             {{ customer.name }}
           </td>
           <td>

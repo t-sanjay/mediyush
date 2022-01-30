@@ -17,9 +17,26 @@ import { TooltipModule } from 'primeng/tooltip';
 import { AuthService } from '../_services/auth.service';
 import { RippleModule } from 'primeng/ripple';
 import { CheckboxModule } from 'primeng/checkbox';
+import { BookingComponent } from './booking/booking.component';
+import { UsersComponent } from './users/users.component';
+import { DoctorsComponent } from './doctors/doctors.component';
+import { AdsComponent } from './ads/ads.component';
+import { BlogsComponent } from './blogs/blogs.component';
+import { AddCoursesComponent } from './add-courses/add-courses.component';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
-  declarations: [AdminDashboardComponent, MenuComponent, CoursesComponent],
+  declarations: [
+    AdminDashboardComponent,
+    MenuComponent,
+    CoursesComponent,
+    BookingComponent,
+    UsersComponent,
+    DoctorsComponent,
+    AdsComponent,
+    BlogsComponent,
+    AddCoursesComponent,
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -34,6 +51,7 @@ import { CheckboxModule } from 'primeng/checkbox';
     TooltipModule,
     RippleModule,
     CheckboxModule,
+    DialogModule,
   ],
   providers: [AuthService],
 })

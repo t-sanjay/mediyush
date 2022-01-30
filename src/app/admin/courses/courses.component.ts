@@ -17,6 +17,8 @@ export class CoursesComponent implements OnInit {
 
   loading: boolean = true;
 
+  addCourseDisplay: boolean;
+
   @ViewChild('dt') table: Table;
 
   constructor(private primengConfig: PrimeNGConfig) {}
@@ -89,19 +91,6 @@ export class CoursesComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.representatives = [
-      { name: 'Amy Elsner', image: 'amyelsner.png' },
-      { name: 'Anna Fali', image: 'annafali.png' },
-      { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-      { name: 'Bernardo Dominic', image: 'bernardodominic.png' },
-      { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-      { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-      { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-      { name: 'Onyama Limba', image: 'onyamalimba.png' },
-      { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-      { name: 'XuXue Feng', image: 'xuxuefeng.png' },
-    ];
-
     this.statuses = [
       { label: 'Unqualified', value: 'unqualified' },
       { label: 'Qualified', value: 'qualified' },
@@ -148,6 +137,7 @@ export class CoursesComponent implements OnInit {
   }
 
   addCourse() {
+    this.addCourseDisplay = true;
     console.log('test');
   }
 }
