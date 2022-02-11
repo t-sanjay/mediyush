@@ -1,0 +1,48 @@
+.header {
+  background: rgb(61, 189, 151);
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.header:hover {
+  transform: scale(1.02);
+}
+
+.card-course:hover {
+  box-shadow: 5px 5px 5px steelblue;
+  border-radius: 20px;
+  transform: scale(1.05);
+}
+
+.card-course {
+  transition: 0.5s;
+  margin: 2rem;
+}
+
+.card-testimonial:hover {
+  box-shadow: 5px 5px 5px steelblue;
+  border-radius: 100px;
+  transform: scale(1.05);
+}
+
+.card-testimonial {
+  transition: 0.5s;
+  margin: 2rem;
+}
+
+.banner {
+  width: 100vw;
+}
+
+.card {
+  width: 70% !important;
+  height: fit-content !important;
+}
+
+.rotateimage {
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}

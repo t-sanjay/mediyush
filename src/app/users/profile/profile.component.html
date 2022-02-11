@@ -1,0 +1,264 @@
+<app-menu></app-menu>
+
+<main class="main pages">
+  <div class="page-header breadcrumb-wrap">
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="index.html" rel="nofollow"
+          ><i class="fi-rs-home mr-5"></i>Home</a
+        >
+        <span></span> Profile <span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-content pt-150 pb-150">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 m-auto">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="dashboard-menu">
+                <ul class="nav flex-column" role="tablist">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      id="dashboard-tab"
+                      data-bs-toggle="tab"
+                      href="#dashboard"
+                      role="tab"
+                      aria-controls="dashboard"
+                      aria-selected="false"
+                      ><i class="fi-rs-settings-sliders mr-10"></i>Dashboard</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="orders-tab"
+                      data-bs-toggle="tab"
+                      href="#orders"
+                      role="tab"
+                      aria-controls="orders"
+                      aria-selected="false"
+                      ><i class="fi-rs-shopping-bag mr-10"></i>Orders</a
+                    >
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      id="account-detail-tab"
+                      data-bs-toggle="tab"
+                      href="#account-detail"
+                      role="tab"
+                      aria-controls="account-detail"
+                      aria-selected="true"
+                      ><i class="fi-rs-user mr-10"></i>Account details</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="tab-content account dashboard-content pl-50">
+                <div
+                  class="tab-pane fade active show"
+                  id="dashboard"
+                  role="tabpanel"
+                  aria-labelledby="dashboard-tab"
+                >
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="mb-0">
+                        Hello {{ user.providerData.displayName }}!
+                      </h3>
+                      <p>
+                        {{ user.email }}
+                      </p>
+                    </div>
+                    <div class="card-body">
+                      <p>
+                        From your account dashboard. you can easily check &amp;
+                        view your recent orders,<br />
+                        manage your shipping and billing addresses and edit your
+                        password and account details.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="orders"
+                  role="tabpanel"
+                  aria-labelledby="orders-tab"
+                >
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="mb-0">Your Orders</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsive">
+                        <p-table
+                          #dt
+                          dataKey="id"
+                          [value]="userBookings"
+                          [rowHover]="true"
+                          [rows]="10"
+                          [showCurrentPageReport]="true"
+                          [rowsPerPageOptions]="[5, 10, 25, 50]"
+                          [paginator]="true"
+                          [filterDelay]="0"
+                        >
+                          <ng-template pTemplate="header">
+                            <tr>
+                              <th pSortableColumn="courseName">
+                                Course Name
+                                <p-sortIcon field="courseName"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="category">
+                                Category
+                                <p-sortIcon field="catergory"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="host">
+                                Host <p-sortIcon field="host"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="duration">
+                                Duration
+                                <p-sortIcon field="duration"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="date">
+                                Date <p-sortIcon field="date"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="price">
+                                Price <p-sortIcon field="price"></p-sortIcon>
+                              </th>
+                              <th pSortableColumn="orderId">
+                                Order Id
+                                <p-sortIcon field="orderId"></p-sortIcon>
+                              </th>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-course>
+                            <tr class="p-selectable-row">
+                              <td>
+                                <span class="p-column-title">Course Name</span>
+                                {{ course.courseName }}
+                              </td>
+                              <td>
+                                <span class="p-column-title">Category</span>
+                                <span class="image-text">{{
+                                  course.category
+                                }}</span>
+                              </td>
+                              <td>
+                                <span class="p-column-title">Host</span>
+                                <span class="image-text">{{
+                                  course.host
+                                }}</span>
+                              </td>
+                              <td>
+                                <span class="p-column-title">Duration</span>
+                                <span class="image-text"
+                                  >{{ course.duration }} hrs</span
+                                >
+                              </td>
+                              <td>
+                                <span class="p-column-title">Date</span>
+                                {{
+                                  course.date.toDate()
+                                    | date: "EEEE, MMMM d, yyyy h:mm a"
+                                }}
+                              </td>
+                              <td>
+                                <span class="p-column-title">Price</span>
+                                <span>{{ course.price }}</span>
+                              </td>
+
+                              <td>
+                                <span class="p-column-title">Order Id</span>
+                                <span>{{ course.orderId }}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="emptymessage">
+                            <tr>
+                              <td colspan="12">No Bookings found.</td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="account-detail"
+                  role="tabpanel"
+                  aria-labelledby="account-detail-tab"
+                >
+                  <div class="card">
+                    <div class="card-header">
+                      <h5>Account Details</h5>
+                    </div>
+                    <div class="card-body">
+                      <form>
+                        <div class="row">
+                          <div class="form-group col-md-6">
+                            <label
+                              >First Name <span class="required">*</span></label
+                            >
+                            <input
+                              required=""
+                              class="form-control"
+                              name="name"
+                              type="text"
+                            />
+                          </div>
+                          <div class="form-group col-md-6">
+                            <label
+                              >Last Name <span class="required">*</span></label
+                            >
+                            <input
+                              required=""
+                              class="form-control"
+                              name="phone"
+                            />
+                          </div>
+
+                          <div class="form-group col-md-12">
+                            <label
+                              >Email Address
+                              <span class="required">*</span></label
+                            >
+                            <input
+                              required=""
+                              class="form-control"
+                              name="email"
+                              type="email"
+                            />
+                          </div>
+
+                          <div class="col-md-12">
+                            <button
+                              type="submit"
+                              class="btn btn-fill-out submit font-weight-bold"
+                              name="submit"
+                              value="Submit"
+                            >
+                              Save Change
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<app-footer></app-footer>

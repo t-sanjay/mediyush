@@ -1,1 +1,120 @@
-<p>ads works!</p>
+<app-menu [activeState]="'Ads'"></app-menu>
+<p-toast key="addedSuccess" position="top-center"></p-toast>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+<p-dialog
+  header="Add Ads"
+  [(visible)]="addAdsDisplay"
+  [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
+  [style]="{ width: '60vw' }"
+>
+  <app-add-ads
+    (hideDialog)="addAdsDisplay = false"
+    (hideAddData)="changeSaveDataDisplay($event)"
+  ></app-add-ads>
+</p-dialog>
+<form>
+  <div class="container my-5">
+    <div class="right">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-trash"
+        label="Delete"
+        class="p-button-raised p-button-rounded p-button-danger mx-3"
+        (click)="deleteAd()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus"
+        label="Add"
+        class="p-button-raised p-button-rounded p-button-success mx-2"
+        (click)="addAds()"
+      ></button>
+    </div>
+  </div>
+  <div>
+    <div class="container my-5">
+      <p-table
+        #dt
+        dataKey="id"
+        [value]="adsData"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem"></th>
+
+            <th pSortableColumn="adsName">
+              Ad's Name <p-sortIcon field="adsName"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="displayName">
+              Display Name <p-sortIcon field="displayName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="category">
+              Category <p-sortIcon field="catergory"></p-sortIcon>
+            </th>
+            <th pSortableColumn="description">
+              Description <p-sortIcon field="description"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="status">
+              Status <p-sortIcon field="status"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-ad>
+          <tr class="p-selectable-row">
+            <td>
+              <p-checkbox
+                name="ad.adsName"
+                [value]="ad"
+                (onChange)="selectedAds(ad)"
+              ></p-checkbox>
+            </td>
+            <td>
+              <span class="p-column-title">Ad's Name</span>
+              {{ ad.adsName }}
+            </td>
+            <td>
+              <span class="p-column-title">Display Name</span>
+              {{ ad.displayName }}
+            </td>
+            <td>
+              <span class="p-column-title">Category</span>
+              <span class="image-text">{{ ad.category }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Description</span>
+              <span class="image-text">{{ ad.description }}</span>
+            </td>
+
+            <td>
+              <span class="p-column-title">Status</span>
+              <span>{{ ad.status }}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No ads found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</form>

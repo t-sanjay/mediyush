@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   firebaseConfig: {
     apiKey: 'AIzaSyA4m6t98DZ3jMAmquPuuml4PJbl_2GNq_8',
     authDomain: 'mediyush-6ecc6.firebaseapp.com',
@@ -9,4 +9,5 @@ export const environment = {
     appId: '1:27334064125:web:353b07b7d49a07f0fccb94',
     measurementId: 'G-E8K09Q6VQW',
   },
+  mapi: 'https://mapi1.herokuapp.com/',
 };

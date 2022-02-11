@@ -6,7 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AuthGuard } from './_guard/auth.guard';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'sign-in', component: LoginComponent },
   { path: 'sign-up', component: SignupComponent },
   { path: 'reset-password', component: ForgotpasswordComponent },
@@ -18,14 +18,13 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
   providers: [AuthGuard],
 })

@@ -34,11 +34,15 @@
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
+              "src/assets/css/main.css",
+              "src/assets/sass/main.scss"
+
             ],
             "scripts": [
               "src/assets/js/jquery.min.js",
               "src/assets/js/main.js",
               "src/assets/js/popper.js",
+              
             ]
           },
           "configurations": {
@@ -46,12 +50,12 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "2mb",
                   "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
+                  "maximumWarning": "2mb",
                   "maximumError": "1mb"
                 }
               ],

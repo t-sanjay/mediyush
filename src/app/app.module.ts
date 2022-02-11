@@ -21,6 +21,8 @@ import { ToastModule } from 'primeng/toast';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -28,9 +30,11 @@ import { MessageService } from 'primeng/api';
     LoginComponent,
     SignupComponent,
     ForgotpasswordComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     TabMenuModule,

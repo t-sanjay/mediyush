@@ -1,0 +1,93 @@
+<app-menu></app-menu>
+<p-toast key="error" position="top-center"></p-toast>
+<p-toast key="success" position="top-center"></p-toast>
+<main class="main">
+  <div class="page-header breadcrumb-wrap">
+    <div class="container">
+      <div class="breadcrumb">
+        <a rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+        <span></span> <a>Events</a> <span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-header mt-30 mb-50">
+    <div class="container">
+      <div class="archive-header">
+        <div class="row align-items-center">
+          <div class="col-xl-3">
+            <h1 class="mb-15">Events</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mb-30 p-5">
+    <div class="row">
+      <div class="col-lg-1-6">
+        <div class="shop-product-fillter"></div>
+        <div class="product-list mb-50">
+          <div class="product-cart-wrap" *ngFor="let course of eventsData">
+            <div class="product-img-action-wrap">
+              <div class="product-img product-img-zoom">
+                <div class="product-img-inner">
+                  <a>
+                    <img
+                      class="default-img"
+                      src="{{ course.fileName }}"
+                      alt=""
+                    />
+                  </a>
+                </div>
+              </div>
+              <div
+                class="product-badges product-badges-position product-badges-mrg"
+              ></div>
+            </div>
+            <div class="product-content-wrap">
+              <div class="product-category">
+                <a>Venue: {{ course.venue }}</a>
+              </div>
+
+              <h2>
+                <a>{{ course.courseName }}</a>
+              </h2>
+              <div class="product-rate-cover"></div>
+              <p class="mt-15 mb-15">
+                {{ course.details }}
+              </p>
+
+              <div class="product-price">
+                <span>₹{{ course.price }} </span>
+                <span class="old-price">₹{{ (course.price * 110) / 100 }}</span>
+              </div>
+
+              <div class="mt-30 d-flex align-items-center">
+                <a
+                  aria-label="Buy now"
+                  class="btn"
+                  *ngIf="!course.inBag"
+                  (click)="addToBag(course)"
+                  ><i class="fi-rs-shopping-cart mr-5"></i>Add to Cart</a
+                >
+                <a
+                  *ngIf="course.inBag"
+                  aria-label="Buy now"
+                  class="btn btn-danger mx-5"
+                  (click)="removeFromCart(course)"
+                  ><i class="pi pi-trash"></i>Remove from Cart</a
+                >
+              </div>
+            </div>
+          </div>
+          <!--single product-->
+        </div>
+        <!--product grid-->
+
+        <!--End Deals-->
+      </div>
+    </div>
+  </div>
+</main>
+
+<app-footer></app-footer>

@@ -1,1 +1,117 @@
-<p>blogs works!</p>
+<p-toast key="addedSuccess" position="top-center"></p-toast>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+<p-dialog
+  header="Add Blog"
+  [(visible)]="addBlogsDisplay"
+  [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
+  [style]="{ width: '45vw' }"
+>
+  <app-add-blogs
+    (hideDialog)="addBlogsDisplay = false"
+    (hideAddData)="changeSaveDataDisplay($event)"
+  ></app-add-blogs>
+</p-dialog>
+<app-menu [activeState]="'Blogs'"></app-menu>
+
+<form>
+  <div class="container my-5">
+    <div class="right">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-trash"
+        label="Delete"
+        class="p-button-raised p-button-rounded p-button-danger mx-3"
+        (click)="deleteBlog()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus"
+        label="Add"
+        class="p-button-raised p-button-rounded p-button-success mx-2"
+        (click)="addBlog()"
+      ></button>
+    </div>
+  </div>
+  <div>
+    <div class="container">
+      <p-table
+        #dt
+        [value]="blogsData"
+        dataKey="id"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem"></th>
+            <th pSortableColumn="blogName">
+              Blog Name <p-sortIcon field="blogName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="category">
+              Category <p-sortIcon field="catergory"></p-sortIcon>
+            </th>
+            <th pSortableColumn="description">
+              Description <p-sortIcon field="description"></p-sortIcon>
+            </th>
+            <th pSortableColumn="authoredBy">
+              Author <p-sortIcon field="authoredBy"></p-sortIcon>
+            </th>
+            <th pSortableColumn="status">
+              Status <p-sortIcon field="status"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-blog>
+          <tr class="p-selectable-row">
+            <td>
+              <p-checkbox
+                name="blog.blogName"
+                [value]="blog"
+                (onChange)="selectedBlogs(blog)"
+              ></p-checkbox>
+            </td>
+            <td>
+              <span class="p-column-title">Blog Name</span>
+              {{ blog.blogName }}
+            </td>
+            <td>
+              <span class="p-column-title">Category</span>
+              <span class="image-text">{{ blog.category }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Description</span>
+              <span class="image-text">{{ blog.description }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Author</span>
+              {{ blog.author }}
+            </td>
+            <td>
+              <span class="p-column-title">Status</span>
+              <span>{{ blog.status }}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No Buzz found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</form>

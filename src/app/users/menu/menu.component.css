@@ -1,0 +1,14 @@
+.pi-instagram,
+.pi-twitter,
+.pi-facebook {
+  color: black;
+}
+
+.pi-shopping-cart,
+.pi-user {
+  color: #ffffff;
+}
+
+.pi-shopping-cart-black {
+  color: black !important;
+}

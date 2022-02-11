@@ -1,1 +1,103 @@
-<p>doctors works!</p>
+<app-menu [activeState]="'Doctors'"></app-menu>
+<p-toast key="addedSuccess" position="top-center"></p-toast>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+<p-dialog
+  header="Add Doctor"
+  [(visible)]="addDoctorDisplay"
+  [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
+  [style]="{ width: '45vw' }"
+>
+  <app-add-doctors
+    (hideDialog)="addDoctorDisplay = false"
+    (hideAddData)="changeSaveDataDisplay($event)"
+  ></app-add-doctors>
+</p-dialog>
+<form>
+  <div class="container my-5">
+    <div class="right">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-trash"
+        label="Delete"
+        class="p-button-raised p-button-rounded p-button-danger mx-3"
+        (click)="deleteDoctor()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus"
+        label="Add"
+        class="p-button-raised p-button-rounded p-button-success mx-2"
+        (click)="addDoctor()"
+      ></button>
+    </div>
+  </div>
+  <div>
+    <div class="container my-5">
+      <p-table
+        #dt
+        [value]="doctorsData"
+        dataKey="id"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem"></th>
+
+            <th pSortableColumn="doctorsName">
+              Doctor's Name <p-sortIcon field="doctorsName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="category">
+              Category <p-sortIcon field="catergory"></p-sortIcon>
+            </th>
+            <th pSortableColumn="designation">
+              Desgination <p-sortIcon field="designation"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-doctor>
+          <tr class="p-selectable-row">
+            <td>
+              <p-checkbox
+                name="doctor.doctorsName"
+                [value]="doctor"
+                (onChange)="selectedDoctors(doctor)"
+              ></p-checkbox>
+            </td>
+            <td>
+              <span class="p-column-title">Doctor's Name</span>
+              {{ doctor.doctorsName }}
+            </td>
+            <td>
+              <span class="p-column-title">Category</span>
+              <span class="image-text">{{ doctor.category }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Designation</span>
+              <span class="image-text">{{ doctor.designation }}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No customers found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</form>

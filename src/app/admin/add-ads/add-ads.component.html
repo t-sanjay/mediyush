@@ -1,0 +1,133 @@
+<p-confirmDialog
+  [style]="{ width: '80%' }"
+  [baseZIndex]="10000"
+></p-confirmDialog>
+<p-toast key="required"></p-toast>
+<form [formGroup]="addAds" (ngSubmit)="showSaveDialog()">
+  <div class="grid p-fluid p-grid p-formgrid p-3 justify-content-center">
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="adsName" class="control-label required">Ad Name</label>
+      <input
+        pInputText
+        id="adsName"
+        type="text"
+        class="inputfield w-full"
+        formControlName="adsName"
+        formControlValidator
+      />
+      <span
+        class="text-danger"
+        *ngIf="
+          addAds.get('adsName').touched &&
+          addAds.get('adsName').errors?.required
+        "
+      >
+        Ad Name is required
+      </span>
+    </div>
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="displayName" class="control-label required"
+        >Display Name</label
+      >
+      <input
+        pInputText
+        id="displayName"
+        type="text"
+        class="inputfield w-full"
+        formControlName="displayName"
+        formControlValidator
+      />
+      <span
+        class="text-danger"
+        *ngIf="
+          addAds.get('displayName').touched &&
+          addAds.get('displayName').errors?.required
+        "
+      >
+        Display Name is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="category" class="control-label required">Category</label>
+      <input
+        pInputText
+        id="category"
+        type="text"
+        class="inputfield w-full"
+        formControlName="category"
+        formControlValidator
+      /><span
+        class="text-danger"
+        *ngIf="
+          addAds.get('category').touched &&
+          addAds.get('category').errors?.required
+        "
+      >
+        Category is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="description" class="control-label required"
+        >Description</label
+      >
+      <textarea
+        pInputTextarea
+        [rows]="7"
+        [cols]="30"
+        id="description"
+        type="text"
+        class="inputfield w-full"
+        formControlName="description"
+        formControlValidator
+      ></textarea
+      ><span
+        class="text-danger"
+        *ngIf="
+          addAds.get('description').touched &&
+          addAds.get('description').errors?.required
+        "
+      >
+        Description is required
+      </span>
+    </div>
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="description" class="control-label required"
+        >Image to be Displayed for Banner</label
+      >
+      <input type="file" (change)="uploadImages($event)" accept=".png,.jpg" />
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="status">Status</label>
+      <p-toggleButton
+        onLabel="Active"
+        offLabel="Unactive"
+        onIcon="pi pi-check"
+        offIcon="pi pi-times"
+        formControlName="status"
+      ></p-toggleButton>
+    </div>
+    <div
+      class="field col-12 md:col-6 lg:col-6 flex align-items-center justify-content-end mt-2"
+    >
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        class="p-button-rounded p-button-secondary mr-3"
+        (click)="close()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Save"
+        class="p-button-rounded p-button-success"
+        (click)="showSaveDialog()"
+      ></button>
+    </div>
+  </div>
+</form>

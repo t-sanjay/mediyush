@@ -60,11 +60,15 @@ export class AuthService {
       displayName: user.displayName,
       photoURL: user.photoURL,
       emailVerified: user.emailVerified,
-      admin: true,
+      admin: false,
     };
     return userRef.set(userData, {
       merge: true,
     });
+  }
+
+  resetPassword(email) {
+    return this.afAuth.sendPasswordResetEmail(email);
   }
 
   isLoggedIn(): boolean {

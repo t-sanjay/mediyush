@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { AuthService } from '../_services/auth.service';
 
 @Component({
   selector: 'app-forgotpassword',
@@ -9,7 +11,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class ForgotpasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
 
-  constructor() {}
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -21,5 +26,14 @@ export class ForgotpasswordComponent implements OnInit {
     });
   }
 
-  onSubmit() {}
+  onSubmit() {
+    if (!this.forgotPasswordForm.invalid) {
+      this.authService.resetPassword(this.forgotPasswordForm.value.email);
+      this.messageService.add({
+        severity: 'success',
+        summary:
+          'Please check your email!! A link to reset the password has been sent!',
+      });
+    }
+  }
 }

@@ -1,0 +1,303 @@
+<header class="header-area header-style-1 header-style-5 header-height-2">
+  <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
+    <div class="container">
+      <div class="header-wrap">
+        <div class="logo logo-width-1">
+          <a><img src="../../../assets/icons/MediyushPNG.png" alt="logo" /></a>
+        </div>
+        <div class="header-right">
+          <div class="search-style-2"></div>
+          <div class="header-action-right">
+            <div class="social-media">
+              <p class="mb-0 d-flex">
+                <a class="d-flex align-items-center justify-content-center px-2"
+                  ><span
+                    ><i
+                      class="pi pi-facebook"
+                      style="font-size: 1.3rem"
+                    ></i></span
+                ></a>
+                <a
+                  class="d-flex align-items-center justify-content-center px-2"
+                  href="https://twitter.com/mediyush?t=mbH4RPM4HvGzJtM5YAvFDw&s=09"
+                  target="_blank"
+                  ><span
+                    ><i
+                      class="pi pi-twitter"
+                      style="font-size: 1.3rem"
+                    ></i></span
+                ></a>
+                <a
+                  class="d-flex align-items-center justify-content-center px-2"
+                  href="https://www.instagram.com/mediyush/"
+                  target="_blank"
+                  ><span
+                    ><i
+                      class="pi pi-instagram"
+                      style="font-size: 1.3rem"
+                    ></i></span
+                ></a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-bottom header-bottom-bg-color sticky-bar">
+    <div class="container">
+      <div class="header-wrap header-space-between position-relative">
+        <div class="logo logo-width-1 d-block d-lg-none"></div>
+        <div class="header-nav d-none d-lg-flex">
+          <div class="main-categori-wrap d-none d-lg-block">
+            <div class="logo logo-width-1"></div>
+          </div>
+          <div
+            class="main-menu main-menu-padding-1 p-l-200 main-menu-lh-2 d-none d-lg-block font-heading"
+          >
+            <nav>
+              <ul>
+                <li>
+                  <a
+                    class="active"
+                    [ngClass]="{ active: activeState === 'Home' }"
+                    [routerLink]="['/dashboard']"
+                  >
+                    <i class="pi pi-home" style="font-size: 1rem"></i>
+                    <span class="pl-1">Home</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    [ngClass]="{ active: activeState === 'Courses' }"
+                    [routerLink]="['/dashboard/courses']"
+                    ><i class="pi pi-book" style="font-size: 1rem"></i>
+                    <span class="pl-1">Courses</span></a
+                  >
+                </li>
+                <!-- <li>
+                  <a
+                    [ngClass]="{ active: activeState === 'Events' }"
+                    [routerLink]="['/dashboard/events']"
+                    ><i class="pi pi-calendar" style="font-size: 1rem"></i>
+                    <span class="pl-1">Events</span></a
+                  >
+                </li> -->
+                <li>
+                  <a
+                    [ngClass]="{ active: activeState === 'Gallery' }"
+                    [routerLink]="['/dashboard/gallery']"
+                    ><i class="pi pi-image" style="font-size: 1rem"></i>
+                    <span class="pl-1">Events</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    [ngClass]="{ active: activeState === 'Blogs' }"
+                    [routerLink]="['/dashboard/blogs']"
+                    ><i class="pi pi-pencil" style="font-size: 1rem"></i>
+                    <span class="pl-1">Buzz</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="hotline d-none d-lg-flex">
+          <div class="col d-flex justify-content-end">
+            <div class="header-action-right">
+              <div class="header-action-2">
+                <div class="header-action-icon-2">
+                  <a class="mini-cart-icon">
+                    <i
+                      class="pi pi-shopping-cart px-1"
+                      style="font-size: 2rem"
+                    ></i>
+                  </a>
+                  <a><span class="lable">Cart</span></a>
+                  <div class="cart-dropdown-wrap cart-dropdown-hm2">
+                    <ul>
+                      <li *ngFor="let item of cartData">
+                        <div class="shopping-cart-img">
+                          <a
+                            ><img
+                              alt="Nest"
+                              src="assets/imgs/shop/thumbnail-3.jpg"
+                          /></a>
+                        </div>
+                        <div class="shopping-cart-title">
+                          <h4>
+                            <a>{{ item.courseName }}</a>
+                            <a>{{ item.eventName }}</a>
+                          </h4>
+                          <h4>{{ item.venue }}</h4>
+                          <h4>{{ item.host }}</h4>
+
+                          <h4>₹ {{ item.price }}</h4>
+                        </div>
+                        <div class="shopping-cart-delete">
+                          <a (click)="removeCourse(item)"
+                            ><i class="fi-rs-cross-small"></i
+                          ></a>
+                        </div>
+                      </li>
+                    </ul>
+                    <div class="shopping-cart-footer">
+                      <div class="shopping-cart-total">
+                        <h4>
+                          Total :<span> ₹ {{ totalPrice }}</span>
+                        </h4>
+                      </div>
+                      <div class="shopping-cart-button">
+                        <a [routerLink]="['/dashboard/cart']" class="outline"
+                          >View cart</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="header-action-icon-2">
+                  <a>
+                    <i class="pi pi-user" style="font-size: 2rem"></i>
+                  </a>
+                  <a><span class="lable ml-0">Account</span></a>
+                  <div
+                    class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown"
+                  >
+                    <ul>
+                      <li *ngIf="loggedIn">
+                        <a [routerLink]="['/dashboard/profile']"
+                          ><i class="pi pi-user-edit"></i> My Account</a
+                        >
+                      </li>
+                      <li *ngIf="loggedIn">
+                        <a (click)="signOut()"
+                          ><i class="pi pi-sign-out"></i>Sign out</a
+                        >
+                      </li>
+                      <li *ngIf="!loggedIn">
+                        <a [routerLink]="['/sign-up']"
+                          ><i class="pi pi-user-edit"></i> Create Account</a
+                        >
+                      </li>
+                      <li *ngIf="!loggedIn">
+                        <a [routerLink]="['/sign-in']"
+                          ><i class="pi pi-user"></i> Login</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="header-action-icon-2 d-block d-lg-none">
+          <div class="burger-icon burger-icon-white" (click)="showMenu()">
+            <span class="burger-icon-top"></span>
+            <span class="burger-icon-mid"></span>
+            <span class="burger-icon-bottom"></span>
+          </div>
+        </div>
+        <div class="header-action-right d-block d-lg-none">
+          <div class="header-action-2">
+            <div class="header-action-icon-2">
+              <a class="mini-cart-icon" [routerLink]="['/dashboard/cart']">
+                <i
+                  class="pi pi-shopping-cart pi-shopping-cart-black px-1"
+                  style="font-size: 2rem"
+                ></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mobile-header-active mobile-header-wrapper-style"
+    [ngClass]="{ 'sidebar-visible': showMenuFlag }"
+  >
+    <div class="mobile-header-wrapper-inner">
+      <div class="mobile-header-top">
+        <div class="mobile-header-logo">
+          <a><img src="../../../assets/icons/MediyushSVG.svg" alt="logo" /></a>
+        </div>
+        <div
+          class="mobile-menu-close close-style-wrap close-style-position-inherit"
+        >
+          <button class="close-style search-close" (click)="showMenu()">
+            <i class="icon-top"></i>
+            <i class="icon-bottom"></i>
+          </button>
+        </div>
+      </div>
+      <div class="mobile-header-content-area">
+        <div class="mobile-menu-wrap mobile-header-border">
+          <!-- mobile menu start -->
+          <nav>
+            <ul class="mobile-menu font-heading">
+              <li class="menu-item-has-children">
+                <a
+                  [ngClass]="{ active: activeState === 'Home' }"
+                  [routerLink]="['/dashboard']"
+                  >Home</a
+                >
+              </li>
+              <li class="menu-item-has-children">
+                <a
+                  [ngClass]="{ active: activeState === 'Courses' }"
+                  [routerLink]="['/dashboard/courses']"
+                  >Courses</a
+                >
+              </li>
+              <li class="menu-item-has-children">
+                <a
+                  [ngClass]="{ active: activeState === 'Gallery' }"
+                  [routerLink]="['/dashboard/gallery']"
+                  >Events</a
+                >
+              </li>
+              <li class="menu-item-has-children">
+                <a
+                  [ngClass]="{ active: activeState === 'Blogs' }"
+                  [routerLink]="['/dashboard/blogs']"
+                  >Blog
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- mobile menu end -->
+        </div>
+        <div class="mobile-header-info-wrap">
+          <div class="single-mobile-header-info">
+            <a><i class="pi pi-user"></i>Log In / Sign Up </a>
+          </div>
+        </div>
+        <div class="mb-50">
+          <h6 class="mb-15">Follow Us</h6>
+          <a
+            class="px-4"
+            href="https://twitter.com/mediyush?t=mbH4RPM4HvGzJtM5YAvFDw&s=09"
+            target="_blank"
+            ><i class="pi pi-twitter" style="font-size: 1.3rem"></i
+          ></a>
+          <a class="px-4"
+            ><i class="pi pi-facebook" style="font-size: 1.3rem"></i
+          ></a>
+          <a
+            class="px-4"
+            href="https://www.instagram.com/mediyush/"
+            target="_blank"
+            ><i class="pi pi-instagram" style="font-size: 1.3rem"></i
+          ></a>
+        </div>
+        <div class="site-copyright">
+          Copyright 2021 © Mediyush. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

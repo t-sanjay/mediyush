@@ -1,0 +1,113 @@
+<app-menu [activeState]="'Testimonials'"></app-menu>
+
+<p-toast key="addedSuccess" position="top-center"></p-toast>
+<p-confirmDialog
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+  header="Confirmation"
+  icon="pi pi-exclamation-triangle"
+></p-confirmDialog>
+<p-dialog
+  header="Add Testimony"
+  [(visible)]="addTestimonyDisplay"
+  [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
+  [style]="{ width: '45vw' }"
+>
+  <app-add-testimonials
+    (hideDialog)="addTestimonyDisplay = false"
+    (hideAddData)="changeSaveDataDisplay($event)"
+  ></app-add-testimonials>
+</p-dialog>
+<form>
+  <div class="container my-5">
+    <div class="right">
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-trash"
+        label="Delete"
+        class="p-button-raised p-button-rounded p-button-danger mx-3"
+        (click)="deleteTestimony()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        icon="pi pi-plus"
+        label="Add"
+        class="p-button-raised p-button-rounded p-button-success mx-2"
+        (click)="addTestimony()"
+      ></button>
+    </div>
+  </div>
+  <div>
+    <div class="container my-5">
+      <p-table
+        #dt
+        [value]="testimonyData"
+        dataKey="id"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem"></th>
+
+            <th pSortableColumn="testimonyName">
+              Testimony's Name <p-sortIcon field="testimonyName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="description">
+              Description <p-sortIcon field="description"></p-sortIcon>
+            </th>
+            <th pSortableColumn="designation">
+              Desgination <p-sortIcon field="designation"></p-sortIcon>
+            </th>
+            <th pSortableColumn="date">
+              Date <p-sortIcon field="date"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-testimony>
+          <tr class="p-selectable-row">
+            <td>
+              <p-checkbox
+                name="testimony.doctorsName"
+                [value]="testimony"
+                (onChange)="selectedTestimonies(testimony)"
+              ></p-checkbox>
+            </td>
+            <td>
+              <span class="p-column-title">Doctor's Name</span>
+              {{ testimony.testimonyName }}
+            </td>
+            <td>
+              <span class="p-column-title">Category</span>
+              <span class="image-text">{{ testimony.description }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Designation</span>
+              <span class="image-text">{{ testimony.designation }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Date</span>
+              <span class="image-text">{{
+                testimony.date.toDate() | date: "EEEE, MMMM d, yyyy h:mm a"
+              }}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No Testimony found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</form>

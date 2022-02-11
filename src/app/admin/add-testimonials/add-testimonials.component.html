@@ -1,0 +1,127 @@
+<p-confirmDialog
+  [style]="{ width: '80%' }"
+  [baseZIndex]="10000"
+></p-confirmDialog>
+<p-toast key="required"></p-toast>
+<form [formGroup]="addTestimony" (ngSubmit)="showSaveDialog()">
+  <div class="grid p-fluid p-grid p-formgrid p-3 justify-content-center">
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="testimonyName" class="control-label required"
+        >Testimony Name</label
+      >
+      <input
+        pInputText
+        id="testimonyName"
+        type="text"
+        class="inputfield w-full"
+        formControlName="testimonyName"
+        formControlValidator
+      />
+      <span
+        class="text-danger"
+        *ngIf="
+          addTestimony.get('testimonyName').touched &&
+          addTestimony.get('testimonyName').errors?.required
+        "
+      >
+        Name is required
+      </span>
+    </div>
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="description" class="control-label required"
+        >Description</label
+      >
+      <textarea
+        pInputTextarea
+        id="description"
+        type="text"
+        class="inputfield w-full"
+        formControlName="description"
+        formControlValidator
+      ></textarea>
+      <span
+        class="text-danger"
+        *ngIf="
+          addTestimony.get('description').touched &&
+          addTestimony.get('description').errors?.required
+        "
+      >
+        Description is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="designation" class="control-label required"
+        >Designation</label
+      >
+      <input
+        pInputText
+        id="designation"
+        type="text"
+        class="inputfield w-full"
+        formControlName="designation"
+        formControlValidator
+      /><span
+        class="text-danger"
+        *ngIf="
+          addTestimony.get('designation').touched &&
+          addTestimony.get('designation').errors?.required
+        "
+      >
+        Designation Name is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="touchui" class="control-label required" v>
+        Date and Time</label
+      >
+      <input
+        id="disabled-input"
+        type="text"
+        formControlName="dateDisplay"
+        pInputText
+      />
+      <p-calendar
+        formControlName="date"
+        [showTime]="true"
+        [showWeek]="true"
+        [inline]="true"
+        (onSelect)="displayDate()"
+        dateFormat="dd.mm.yy"
+        [hourFormat]="'12'"
+        [required]
+      ></p-calendar>
+      <span
+        class="text-danger"
+        *ngIf="
+          addTestimony.get('date').touched &&
+          addTestimony.get('date').errors?.required
+        "
+      >
+        Date & Time is required
+      </span>
+    </div>
+
+    <div
+      class="field col-12 md:col-6 lg:col-6 flex align-items-center justify-content-end mt-2"
+    >
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        class="p-button-rounded p-button-secondary mr-3"
+        (click)="close()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Save"
+        class="p-button-rounded p-button-success"
+        (click)="showSaveDialog()"
+      ></button>
+    </div>
+  </div>
+</form>

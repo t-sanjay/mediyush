@@ -2,9 +2,12 @@
   <div class="container">
     <div class="row justify-content-between">
       <div class="col">
-        <a class="navbar-brand" href="index.html"
-          >Papermag <span>Magazine</span></a
-        >
+        <a class="navbar-brand" [routerLink]="''"
+          ><img
+            src="../../../assets/icons/MediyushSVG.svg"
+            alt="MediyushLogo"
+            width="60%"
+        /></a>
       </div>
       <div class="col d-flex justify-content-end">
         <div class="social-media">
@@ -14,19 +17,20 @@
                 ><i class="sr-only">Facebook</i></span
               ></a
             >
-            <a class="d-flex align-items-center justify-content-center"
+            <a
+              class="d-flex align-items-center justify-content-center"
+              href="https://twitter.com/mediyush?t=mbH4RPM4HvGzJtM5YAvFDw&s=09"
+              target="_blank"
               ><span class="fa fa-twitter"
                 ><i class="sr-only">Twitter</i></span
               ></a
             >
-            <a class="d-flex align-items-center justify-content-center"
+            <a
+              class="d-flex align-items-center justify-content-center"
+              href="https://www.instagram.com/mediyush/"
+              target="_blank"
               ><span class="fa fa-instagram"
                 ><i class="sr-only">Instagram</i></span
-              ></a
-            >
-            <a class="d-flex align-items-center justify-content-center"
-              ><span class="fa fa-dribbble"
-                ><i class="sr-only">Dribbble</i></span
               ></a
             >
           </p>
@@ -48,7 +52,7 @@
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span class="fa fa-bars" (click)="showMenu()"></span> Menu
+        <span class="fa fa-bars" (click)="showMenu()"> Menu</span>
       </button>
       <div
         class="collapse navbar-collapse"
@@ -71,15 +75,54 @@
           </li>
           <li
             class="nav-item"
-            class="nav-item"
             [ngClass]="{ active: activeState === 'Booking' }"
           >
-            <a class="nav-link">Booking</a>
+            <a
+              class="nav-link"
+              [routerLink]="['/dashboard-admin/booking-admin']"
+              >Booking</a
+            >
           </li>
-          <li class="nav-item"><a class="nav-link">Users</a></li>
-          <li class="nav-item"><a class="nav-link">Doctors</a></li>
-          <li class="nav-item"><a class="nav-link">Ads</a></li>
-          <li class="nav-item"><a class="nav-link">Blogs</a></li>
+          <li class="nav-item" [ngClass]="{ active: activeState === 'Users' }">
+            <a class="nav-link" [routerLink]="['/dashboard-admin/users-admin']"
+              >Users</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            [ngClass]="{ active: activeState === 'Doctors' }"
+          >
+            <a
+              class="nav-link"
+              [routerLink]="['/dashboard-admin/doctors-admin']"
+              >Doctors</a
+            >
+          </li>
+          <li class="nav-item" [ngClass]="{ active: activeState === 'Ads' }">
+            <a class="nav-link" [routerLink]="['/dashboard-admin/ads-admin']"
+              >Ads</a
+            >
+          </li>
+          <li class="nav-item" [ngClass]="{ active: activeState === 'Blogs' }">
+            <a class="nav-link" [routerLink]="['/dashboard-admin/blogs-admin']"
+              >Blogs</a
+            >
+          </li>
+          <li
+            class="nav-item"
+            [ngClass]="{ active: activeState === 'Testimonials' }"
+          >
+            <a
+              class="nav-link"
+              [routerLink]="['/dashboard-admin/testimonials-admin']"
+              >Testimonials</a
+            >
+          </li>
+          <li class="nav-item" [ngClass]="{ active: activeState === 'Events' }">
+            <a class="nav-link" [routerLink]="['/dashboard-admin/events-admin']"
+              >Events</a
+            >
+          </li>
         </ul>
         <div class="row">
           <button

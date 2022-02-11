@@ -24,6 +24,30 @@ import { AdsComponent } from './ads/ads.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { AddCoursesComponent } from './add-courses/add-courses.component';
 import { DialogModule } from 'primeng/dialog';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { CalendarModule } from 'primeng/calendar';
+import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ToastModule } from 'primeng/toast';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AddDoctorsComponent } from './add-doctors/add-doctors.component';
+import { AddAdsComponent } from './add-ads/add-ads.component';
+import { AddBlogsComponent } from './add-blogs/add-blogs.component';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FileUploadModule } from 'primeng/fileupload';
+import { HttpClientModule } from '@angular/common/http';
+import {
+  AngularFireStorageModule,
+  AngularFireStorageReference,
+  AngularFireUploadTask,
+} from '@angular/fire/storage';
+import { TestimonialsComponent } from './testimonials/testimonials.component';
+import { AddTestimonialsComponent } from './add-testimonials/add-testimonials.component';
+import { AddEventsComponent } from './add-events/add-events.component';
+import { EventsComponent } from './events/events.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +60,13 @@ import { DialogModule } from 'primeng/dialog';
     AdsComponent,
     BlogsComponent,
     AddCoursesComponent,
+    AddDoctorsComponent,
+    AddAdsComponent,
+    AddBlogsComponent,
+    TestimonialsComponent,
+    AddTestimonialsComponent,
+    AddEventsComponent,
+    EventsComponent,
   ],
   imports: [
     CommonModule,
@@ -52,6 +83,19 @@ import { DialogModule } from 'primeng/dialog';
     RippleModule,
     CheckboxModule,
     DialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ConfirmDialogModule,
+    CalendarModule,
+    SelectButtonModule,
+    ToggleButtonModule,
+    ToastModule,
+    InputTextareaModule,
+    FileUploadModule,
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireStorageModule,
   ],
   providers: [AuthService],
 })

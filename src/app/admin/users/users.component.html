@@ -1,1 +1,71 @@
-<p>users works!</p>
+<app-menu [activeState]="'Users'"></app-menu>
+
+<form>
+  <div>
+    <div class="container my-5">
+      <p-table
+        #dt
+        [value]="users"
+        dataKey="id"
+        [rowHover]="true"
+        [rows]="10"
+        [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[5, 10, 25, 50]"
+        [paginator]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="displayName">
+              Display Name <p-sortIcon field="displayName"></p-sortIcon>
+            </th>
+            <th pSortableColumn="email">
+              Email Address <p-sortIcon field="email"></p-sortIcon>
+            </th>
+            <th pSortableColumn="isAdmin">
+              Is Admin <p-sortIcon field="isAdmin"></p-sortIcon>
+            </th>
+            <th pSortableColumn="uid">
+              UID <p-sortIcon field="uid"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user let-i>
+          <tr class="p-selectable-row" [pSelectableRow]="user">
+            <td>
+              <p-tableCheckbox
+                id="{{ user }}.{{ i }}"
+                [value]="user"
+              ></p-tableCheckbox>
+            </td>
+            <td>
+              <span class="p-column-title">Display Name</span>
+              {{ user.displayName }}
+            </td>
+            <td>
+              <span class="p-column-title">Email</span>
+              <span class="image-text">{{ user.email }}</span>
+            </td>
+            <td>
+              <span class="p-column-title">Is Admin</span>
+              {{ user.admin }}
+            </td>
+            <td>
+              <span class="p-column-title">UID</span>
+              <span>{{ user.uid }}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">No customers found.</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,142 @@
+<p-confirmDialog
+  [style]="{ width: '80%' }"
+  [baseZIndex]="10000"
+></p-confirmDialog>
+<p-toast key="required"></p-toast>
+<form [formGroup]="addEvents" (ngSubmit)="showSaveDialog()">
+  <div class="grid p-fluid p-grid p-formgrid p-3 justify-content-center">
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="eventName" class="control-label required">Event Name</label>
+      <input
+        pInputText
+        id="eventName"
+        type="text"
+        class="inputfield w-full"
+        formControlName="eventName"
+        formControlValidator
+      />
+      <span
+        class="text-danger"
+        *ngIf="
+          addEvents.get('eventName').touched &&
+          addEvents.get('eventName').errors?.required
+        "
+      >
+        Name is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="venue" class="control-label required">Venue</label>
+      <input
+        pInputText
+        id="venue"
+        type="text"
+        class="inputfield w-full"
+        formControlName="venue"
+        formControlValidator
+      />
+      <span
+        class="text-danger"
+        *ngIf="
+          addEvents.get('venue').touched &&
+          addEvents.get('venue').errors?.required
+        "
+      >
+        Name is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="touchui" class="control-label required" v
+        >Start Date and Time</label
+      >
+      <input
+        id="disabled-input"
+        type="text"
+        formControlName="dateDisplay"
+        pInputText
+      />
+      <p-calendar
+        formControlName="date"
+        [showTime]="true"
+        [showWeek]="true"
+        [inline]="true"
+        (onSelect)="displayDate()"
+        dateFormat="dd.mm.yy"
+        [hourFormat]="'12'"
+        [required]
+      ></p-calendar>
+      <span
+        class="text-danger"
+        *ngIf="
+          addEvents.get('date').touched &&
+          addEvents.get('date').errors?.required
+        "
+      >
+        Date & Time is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="price" class="control-label required"
+        >Price <span>(in INR)</span></label
+      >
+      <input
+        pInputText
+        id="price"
+        type="number"
+        class="inputfield w-full"
+        formControlName="price"
+        formControlValidator
+      /><span
+        class="text-danger"
+        *ngIf="
+          addEvents.get('price').touched &&
+          addEvents.get('price').errors?.required
+        "
+      >
+        Price is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="details" class="control-label">Details</label>
+      <textarea
+        pInputTextarea
+        id="details"
+        type="text"
+        class="inputfield w-full"
+        formControlName="details"
+      ></textarea>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="description" class="control-label"
+        >Image to be Displayed for Banner</label
+      >
+      <input type="file" (change)="uploadImages($event)" accept=".png,.jpg" />
+    </div>
+
+    <div
+      class="field col-12 md:col-6 lg:col-6 flex align-items-center justify-content-end mt-2"
+    >
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        class="p-button-rounded p-button-secondary mr-3"
+        (click)="close()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Save"
+        class="p-button-rounded p-button-success"
+        (click)="showSaveDialog()"
+      ></button>
+    </div>
+  </div>
+</form>

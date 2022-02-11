@@ -1,0 +1,132 @@
+<p-confirmDialog
+  [style]="{ width: '80%' }"
+  [baseZIndex]="10000"
+></p-confirmDialog>
+<p-toast key="required"></p-toast>
+<form [formGroup]="addBlog" (ngSubmit)="showSaveDialog()">
+  <div class="grid p-fluid p-grid p-formgrid p-3 justify-content-center">
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="blogName" class="control-label required">Blog Name</label>
+      <input
+        pInputText
+        id="blogName"
+        type="text"
+        class="inputfield w-full"
+        formControlName="blogName"
+        formControlValidator
+      />
+      <span
+        class="text-danger"
+        *ngIf="
+          addBlog.get('blogName').touched &&
+          addBlog.get('blogName').errors?.required
+        "
+      >
+        Name is required
+      </span>
+    </div>
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="category" class="control-label required">Category</label>
+      <input
+        pInputText
+        id="category"
+        type="text"
+        class="inputfield w-full"
+        formControlName="category"
+        formControlValidator
+      />
+      <span
+        class="text-danger"
+        *ngIf="
+          addBlog.get('category').touched &&
+          addBlog.get('category').errors?.required
+        "
+      >
+        Category is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="description" class="control-label required"
+        >Description</label
+      >
+      <textarea
+        pInputTextarea
+        id="description"
+        [rows]="7"
+        [cols]="30"
+        type="text"
+        class="inputfield w-full"
+        formControlName="description"
+        formControlValidator
+      ></textarea>
+      <span
+        class="text-danger"
+        *ngIf="
+          addBlog.get('description').touched &&
+          addBlog.get('description').errors?.required
+        "
+      >
+        Description is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="author" class="control-label required">Author</label>
+      <input
+        pInputText
+        id="author"
+        type="text"
+        class="inputfield w-full"
+        formControlName="author"
+        formControlValidator
+      /><span
+        class="text-danger"
+        *ngIf="
+          addBlog.get('author').touched &&
+          addBlog.get('author').errors?.required
+        "
+      >
+        Author is required
+      </span>
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="description" class="control-label required"
+        >Image to be Displayed for Banner</label
+      >
+      <input type="file" (change)="uploadImages($event)" accept=".png,.jpg" />
+    </div>
+
+    <div class="field col-12 md:col-10 lg:col-10">
+      <label for="status">Status</label>
+      <p-toggleButton
+        onLabel="Active"
+        offLabel="Unactive"
+        onIcon="pi pi-check"
+        offIcon="pi pi-times"
+        formControlName="status"
+      ></p-toggleButton>
+    </div>
+    <div
+      class="field col-12 md:col-6 lg:col-6 flex align-items-center justify-content-end mt-2"
+    >
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Cancel"
+        class="p-button-rounded p-button-secondary mr-3"
+        (click)="close()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        type="button"
+        label="Save"
+        class="p-button-rounded p-button-success"
+        (click)="showSaveDialog()"
+      ></button>
+    </div>
+  </div>
+</form>
