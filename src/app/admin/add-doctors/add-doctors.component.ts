@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FirebaseService } from '../_services/firebase.service';
@@ -12,6 +12,9 @@ import { FirebaseService } from '../_services/firebase.service';
 export class AddDoctorsComponent implements OnInit {
   @Output() hideAddData = new EventEmitter<boolean>();
   @Output() hideDialog = new EventEmitter<boolean>();
+  @Input() updateData;
+
+  deleteDoctor: FormGroup;
 
   addDoctor = new FormGroup({
     doctorsName: new FormControl('', Validators.required),
@@ -25,6 +28,11 @@ export class AddDoctorsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+  ngOnChanges() {
+    this.addDoctor.reset();
+    this.deleteDoctor = this.updateData;
+    this.addDoctor.patchValue(this.updateData);
+  }
 
   createForm() {}
 
@@ -43,6 +51,9 @@ export class AddDoctorsComponent implements OnInit {
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
+          if (this.deleteDoctor.value !== null || undefined || {}) {
+            this.firebaseService.deleteDoctors([this.deleteDoctor]);
+          }
           this.firebaseService.createDoctor(this.addDoctor.value);
           this.addDoctor.reset();
           this.hideAddData.emit(false);

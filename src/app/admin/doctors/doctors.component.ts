@@ -18,6 +18,7 @@ export class DoctorsComponent implements OnInit {
   addDoctorDisplay: boolean = false;
   doctorsData: any[];
   selectedDoctor = [];
+  updateData = [];
 
   @ViewChild('dt') table: Table;
 
@@ -60,6 +61,7 @@ export class DoctorsComponent implements OnInit {
   }
 
   changeSaveDataDisplay(value: any) {
+    this.updateData = [];
     this.addDoctorDisplay = false;
     this.messageService.add({
       key: 'addedSuccess',
@@ -79,5 +81,14 @@ export class DoctorsComponent implements OnInit {
     } else {
       this.selectedDoctor.push(data);
     }
+  }
+
+  updateItem(data) {
+    this.updateData = data;
+    this.addDoctorDisplay = true;
+  }
+
+  eraseData() {
+    this.updateData = [];
   }
 }

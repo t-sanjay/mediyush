@@ -52,9 +52,9 @@ export class AddCoursesComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {}
   ngOnChanges() {
+    this.addCourse.reset();
     this.deleteCourse = this.updateData;
     this.addCourse.patchValue(this.updateData);
-    this.updateData = [];
   }
 
   displayDate() {

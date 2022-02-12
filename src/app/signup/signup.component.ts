@@ -31,6 +31,8 @@ export class SignupComponent implements OnInit {
       ]),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required),
+      uid: new FormControl(''),
+      admin: new FormControl(false),
     });
   }
 
@@ -42,7 +44,9 @@ export class SignupComponent implements OnInit {
           severity: 'success',
           summary: 'Sign-up Successful, You are redirected to sign in page!!',
         });
-        this.authService.setUserData(result.user);
+        this.signUpForm.controls.uid.setValue(result.user.uid);
+        console.log(this.signUpForm);
+        this.authService.setUserData(this.signUpForm.value);
         this.router.navigateByUrl('sign-in');
       })
       .catch((error) => {

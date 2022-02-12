@@ -4,11 +4,10 @@
   color: black;
 }
 
-.pi-shopping-cart,
-.pi-user {
-  color: #ffffff;
-}
-
 .pi-shopping-cart-black {
   color: black !important;
+}
+
+.header-bottom-bg-color {
+  background-color: transparent;
 }

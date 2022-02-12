@@ -17,10 +17,6 @@
       >
         <ng-template pTemplate="header">
           <tr>
-            <th>
-              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
-            </th>
-            <!-- <th style="width: 3rem"></th> -->
             <th pSortableColumn="courseName">
               Booking Id <p-sortIcon field="courseName"></p-sortIcon>
             </th>
@@ -28,43 +24,34 @@
               Category <p-sortIcon field="catergory"></p-sortIcon>
             </th>
             <th pSortableColumn="host">
-              User's Name <p-sortIcon field="host"></p-sortIcon>
+              User's Unique ID<p-sortIcon field="host"></p-sortIcon>
             </th>
-            <th pSortableColumn="date">
-              Date <p-sortIcon field="date"></p-sortIcon>
-            </th>
-            <th pSortableColumn="status">
-              Status <p-sortIcon field="status"></p-sortIcon>
+            <th pSortableColumn="courseName ">
+              Course Name <p-sortIcon field="courseName"></p-sortIcon>
             </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-booking let-i>
           <tr class="p-selectable-row" [pSelectableRow]="booking">
             <td>
-              <p-tableCheckbox
-                id="{{ booking }}.{{ i }}"
-                [value]="booking"
-              ></p-tableCheckbox>
-            </td>
-            <td>
-              <span class="p-column-title">Course Name</span>
-              {{ booking.courseName }}
+              <span class="p-column-title">Booking Id</span>
+              {{ booking.id }}
             </td>
             <td>
               <span class="p-column-title">Category</span>
-              <span class="image-text">{{ booking.category }}</span>
+              <span class="image-text" *ngFor="let course of booking.courses">
+                <span>{{ course.category }} ,</span></span
+              >
             </td>
             <td>
-              <span class="p-column-title">Host</span>
-              <span class="image-text">{{ booking.host }}</span>
+              <span class="p-column-title">User's UID</span>
+              <span class="image-text">{{ booking.userId }}</span>
             </td>
             <td>
-              <span class="p-column-title">Date</span>
-              {{ booking.date.toDate() }}
-            </td>
-            <td>
-              <span class="p-column-title">Status</span>
-              <span>{{ booking.status }}</span>
+              <span class="p-column-title">Course Name</span>
+              <span class="image-text" *ngFor="let course of booking.courses">
+                <span>{{ course.courseName }} ,</span></span
+              >
             </td>
           </tr>
         </ng-template>

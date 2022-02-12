@@ -13,6 +13,10 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   categories = [{ option: null, label: 'All' }];
 
+  categoryDisplay: boolean = true;
+
+  allCourses = [];
+
   constructor(
     private firebaseService: FirebaseService,
     private messageService: MessageService
@@ -23,6 +27,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.courses = this.firebaseService.coursesAll;
+    this.bag = this.firebaseService.bagData;
+    this.allCourses = this.firebaseService.coursesAll;
+
+    this.bag.forEach((element) => {
+      if (this.allCourses.find((e) => e.id == element.id)) {
+        this.allCourses.find((e) => e.id == element.id).inBag = element.inBag;
+      }
+    });
     this.courses.forEach((element) => {
       this.categories.push({
         option: element.category,
@@ -38,10 +50,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
   readFromBag(data) {
     this.bag = data;
     this.courses = this.firebaseService.coursesAll;
-  }
-
-  readAllCourses(data) {
-    this.courses = data;
   }
 
   checkIfPresentInBag(selectedCourse) {
@@ -62,16 +70,25 @@ export class CoursesComponent implements OnInit, OnDestroy {
   }
 
   assignOnlyCourses(data) {
+    data.forEach((element) => {
+      if (this.allCourses.find((e) => e.id == element.id)) {
+        element.inBag = this.allCourses.find((e) => e.id == element.id).inBag;
+      }
+    });
     this.courses = data;
+    console.log(this.courses);
   }
 
   categoryChange(data) {
+    this.categoryDisplay = false;
     if (data.option == null) {
       this.courses = this.firebaseService.coursesAll;
     } else {
-      this.firebaseService.readBlogsByCategory(data.option).subscribe((res) => {
-        this.assignOnlyCourses(res);
-      });
+      this.firebaseService
+        .readCoursesByCategory(data.option)
+        .subscribe((res) => {
+          this.assignOnlyCourses(res);
+        });
     }
   }
 

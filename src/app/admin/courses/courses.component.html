@@ -10,6 +10,7 @@
   [(visible)]="addCourseDisplay"
   [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
   [style]="{ width: '45vw' }"
+  (onHide)="eraseData()"
 >
   <app-add-courses
     (hideDialog)="addCourseDisplay = false"
@@ -85,9 +86,6 @@
               Show On First Page
               <p-sortIcon field="showOnFirstPage"></p-sortIcon>
             </th>
-            <th pSortableColumn="status">
-              Status <p-sortIcon field="status"></p-sortIcon>
-            </th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-course>
@@ -131,10 +129,6 @@
             <td>
               <span class="p-column-title">Show On First Page</span>
               <span>{{ course.showOnFirstPage }}</span>
-            </td>
-            <td>
-              <span class="p-column-title">Status</span>
-              <span>{{ course.status }}</span>
             </td>
           </tr>
         </ng-template>

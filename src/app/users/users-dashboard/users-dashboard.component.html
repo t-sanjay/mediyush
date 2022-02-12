@@ -1,40 +1,219 @@
 <app-menu [activeState]="'Home'"></app-menu>
 
-<main class="main">
-  <section class="home-slider position-relative mb-30 m-t-40">
+<main class="main m-t-80">
+  <section class="home-slider position-relative mb-30">
     <div class="home-slide-cover">
-      <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
-        <div class="single-hero-slider rectangle single-animation-wrap">
+      <div class="home-slide-cover mt-30">
+        <div class="hero-slider-1 style-4 dot-style-1 dot-style-1-position-1">
           <p-carousel
             [numVisible]="1"
             [numScroll]="1"
             [value]="ads"
             [circular]="true"
             [showIndicators]="false"
-            [autoplayInterval]="3000"
+            [autoplayInterval]="5000"
             [showNavigators]="false"
           >
             <ng-template pTemplate="item" let-ad>
-              <div class="d-flex justify-content-center">
-                <p>
-                  <img class="banner" src="{{ ad.fileName }}" alt="" />
-                </p>
+              <div
+                class="single-hero-slider single-animation-wrap"
+                style="background-image: url({{ ad.fileName }}); "
+              >
+                <div class="content-slider">
+                  <h1 class="display-2">
+                    Empowering Professionals to <br />
+                    era of new learning
+                  </h1>
+                  <p class="mb-65 mt-30">
+                    <a [routerLink]="['/dashboard/sign-up']">
+                      <button class="btn" type="submit">Join Us</button></a
+                    >
+                  </p>
+                </div>
               </div>
             </ng-template>
           </p-carousel>
         </div>
+        <div class="slider-arrow hero-slider-1-arrow"></div>
       </div>
-      <div class="slider-arrow hero-slider-1-arrow"></div>
     </div>
   </section>
+  <div class="page-content">
+    <div class="container">
+      <div class="row vendor-grid">
+        <div class="col-lg-4 col-md-6 col-12 col-sm-6">
+          <a class="card-home" [routerLink]="['/dashboard/courses']">
+            <div class="vendor-wrap mb-40">
+              <div class="vendor-img-action-wrap">
+                <div class="vendor-img">
+                  <i class="pi pi-book default-img" style="font-size: 2rem"></i>
+                </div>
+              </div>
+              <div class="vendor-content-wrap mt-4">
+                <div
+                  class="d-flex justify-content-between align-items-end mb-30"
+                >
+                  <div>
+                    <h4 class="mb-5">Courses</h4>
+                    <hr
+                      style="
+                        border: 2px solid #ff0000;
+                        width: 100px;
+                        color: #ff0000;
+                      "
+                    />
+                  </div>
+                  <div></div>
+                </div>
+
+                <div class="vendor-info mb-30">
+                  <ul class="contact-infor">
+                    <li>
+                      <span
+                        >Get the best Courses for your <br />
+                        Medical profession</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12 col-sm-6">
+          <a class="card-home" [routerLink]="['/dashboard/gallery']">
+            <div class="vendor-wrap mb-40">
+              <div class="vendor-img-action-wrap">
+                <div class="vendor-img">
+                  <i
+                    class="pi pi-image default-img"
+                    style="font-size: 2rem"
+                  ></i>
+                </div>
+              </div>
+              <div class="vendor-content-wrap mt-4">
+                <div
+                  class="d-flex justify-content-between align-items-end mb-30"
+                >
+                  <div>
+                    <h4 class="mb-5">Events</h4>
+                    <hr
+                      style="
+                        border: 2px solid #ff0000;
+                        width: 100px;
+                        color: #ff0000;
+                      "
+                    />
+                  </div>
+                </div>
+
+                <div class="vendor-info mb-30">
+                  <ul class="contact-infor">
+                    <li>
+                      <span
+                        >Attend events and meet <br />
+                        like minded people.</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12 col-sm-6">
+          <a class="card-home" [routerLink]="['/dashboard/blogs']">
+            <div class="vendor-wrap mb-40">
+              <div class="vendor-img-action-wrap">
+                <div class="vendor-img">
+                  <i
+                    class="pi pi-pencil default-img"
+                    style="font-size: 2rem"
+                  ></i>
+                </div>
+              </div>
+              <div class="vendor-content-wrap mt-4">
+                <div
+                  class="d-flex justify-content-between align-items-end mb-30"
+                >
+                  <div>
+                    <h4 class="mb-5">Buzz</h4>
+                    <hr
+                      style="
+                        border: 2px solid #ff0000;
+                        width: 80px;
+                        color: #ff0000;
+                      "
+                    />
+                  </div>
+                </div>
+
+                <div class="vendor-info mb-30">
+                  <ul class="contact-infor">
+                    <li>
+                      <span
+                        >Know what's new happening in the <br />
+                        area, read our latest blogs</span
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+        <div class="p-8">
+          <img src="../../../assets/images/events.jpg" alt="" />
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-12 col-sm-6">
+        <div class="p-8">
+          <hr style="border: 2px solid #ff0000; width: 150px; color: #ff0000" />
+          <h2>Events</h2>
+
+          <p class="mt-65">
+            <strong>
+              Community Events for young minds, <br />
+              mentorship between professionals and new students.</strong
+            >
+          </p>
+
+          <div class="mt-70">
+            <a [routerLink]="['/dashboard/gallery']">
+              <div class="row">
+                <div class="col-4">
+                  <h5 class="link">Learn More</h5>
+                </div>
+                <div class="col">
+                  <i
+                    class="pi pi-chevron-right link"
+                    style="font-size: 1.5rem"
+                  ></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
-<div class="page-header mt-30 mb-50">
+<div class="page-header mt-70 mb-20">
   <div class="container">
-    <div class="archive-header">
+    <div class="">
       <div class="row align-items-center">
         <div class="col-xl-6">
           <h1 class="mb-15">Most Bought Courses</h1>
+          <p>Top selling courses</p>
         </div>
       </div>
     </div>
@@ -42,7 +221,7 @@
 </div>
 <div class="container mb-30">
   <div class="row flex-row-reverse">
-    <div class="col-lg-4-5">
+    <div class="col">
       <div class="shop-product-fillter">
         <div class="totall-product">
           <p>
@@ -57,79 +236,82 @@
         </div>
       </div>
       <div class="product-list mb-50">
-        <div class="product-cart-wrap" *ngFor="let course of courses">
-          <div class="product-img-action-wrap">
-            <div class="product-img product-img-zoom">
-              <div class="product-img-inner">
-                <a [routerLink]="['/dashboard/courses']">
-                  <img class="default-img" src="{{ course.fileName }}" alt="" />
-                </a>
+        <div class="row">
+          <div class="product-cart-wrap" *ngFor="let course of courses">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-6">
+                  <div class="">
+                    <div class="">
+                      <div class="">
+                        <a [routerLink]="['/dashboard/courses']">
+                          <img class="" src="{{ course.fileName }}" alt="" />
+                        </a>
+                      </div>
+                    </div>
+                    <div
+                      class="product-badges product-badges-position product-badges-mrg"
+                    >
+                      <!-- <span class="hot">Trending</span> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-6">
+                  <div class="product-content-wrap">
+                    <div class="product-category">
+                      <a [routerLink]="['/dashboard/courses']">{{
+                        course.host
+                      }}</a>
+                    </div>
+                    <h2>
+                      <a [routerLink]="['/dashboard/courses']">{{
+                        course.courseName
+                      }}</a>
+                    </h2>
+                    <div class="product-rate-cover"></div>
+                    <p class="mt-15 mb-15">
+                      {{ course.description }}
+                    </p>
+
+                    <div class="product-price">
+                      <span>₹{{ course.price }} </span>
+                      <span class="old-price"
+                        >₹{{ (course.price * 110) / 100 }}</span
+                      >
+                    </div>
+
+                    <div class="mt-30">
+                      <a [routerLink]="['/dashboard/courses']">
+                        <div class="row">
+                          <div class="col-5">
+                            <p class="link">Learn More</p>
+                          </div>
+                          <div class="col-1">
+                            <i
+                              class="pi pi-chevron-right link"
+                              style="font-size: 1.5rem"
+                            ></i>
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div
-              class="product-badges product-badges-position product-badges-mrg"
-            >
-              <span class="hot">Trending</span>
-            </div>
-          </div>
-          <div class="product-content-wrap">
-            <div class="product-category">
-              <a [routerLink]="['/dashboard/courses']">{{ course.host }}</a>
-            </div>
-            <h2>
-              <a [routerLink]="['/dashboard/courses']">{{
-                course.courseName
-              }}</a>
-            </h2>
-            <div class="product-rate-cover"></div>
-            <p class="mt-15 mb-15">
-              {{ course.description }}
-            </p>
-
-            <div class="product-price">
-              <span>₹{{ course.price }} </span>
-              <span class="old-price">₹{{ (course.price * 110) / 100 }}</span>
-            </div>
-
-            <div class="mt-30 d-flex align-items-center"></div>
           </div>
         </div>
+
         <!--single product-->
       </div>
-    </div>
-    <div class="col-lg-1-5 primary-sidebar sticky-sidebar">
-      <div class="sidebar-widget widget-category-2 mb-30">
-        <h5 class="section-title style-1 mb-30">Top Categories</h5>
-        <ul>
-          <li
-            [routerLink]="['/dashboard/courses']"
-            *ngFor="let category of categories"
-          >
-            <a> {{ category.label }}</a>
-          </li>
-        </ul>
-      </div>
-      <!-- Fillter By Price -->
-      <!-- Product sidebar Widget -->
-
-      <!-- <div class="banner-img wow fadeIn mb-lg-0 animated d-lg-block d-none">
-        <img src="assets/imgs/banner/banner-11.png" alt="" />
-        <div class="banner-text">
-          <span>Oganic</span>
-          <h4>
-            Save 17% <br />
-            on <span class="text-brand">Oganic</span><br />
-            Juice
-          </h4>
-        </div>
-      </div> -->
     </div>
   </div>
 </div>
 
-<div class="page-header mt-30 mb-50">
+<div class="page-header m-t-100 mb-20">
   <div class="container">
-    <div class="archive-header">
+    <div class="">
       <div class="row align-items-center">
         <div class="col-xl-6">
           <h1 class="mb-15">Testimonials</h1>
@@ -139,46 +321,35 @@
   </div>
 </div>
 
-<p-carousel
-  [value]="testimonies"
-  [autoplayInterval]="5000"
-  [circular]="true"
-  [showNavigators]="false"
->
-  <ng-template let-testimony pTemplate="item">
-    <div class="row vendor-grid d-flex justify-content-center">
-      <div class="col-lg-6 col-md-12 col-12 col-sm-12">
-        <div class="vendor-wrap style-2 mb-40">
-          <div
-            class="product-badges product-badges-position product-badges-mrg"
-          ></div>
-
-          <div class="vendor-content-wrap">
-            <div class="mb-30">
-              <h4 class="mb-5">
-                <a>{{ testimony.testimonyName }}</a>
-              </h4>
-              <div
-                class="vendor-info d-flex justify-content-between align-items-end mt-30"
-              >
-                <ul class="contact-infor">
-                  <li>
-                    <img src="../../../assets/images/doublequotes.png" alt="" />
-                    <span>{{ testimony.description }}</span>
-                    <img
-                      src="../../../assets/images/doublequotes.png"
-                      class="rotateimage"
-                      alt=""
-                    />
-                  </li>
-                </ul>
-              </div>
-            </div>
+<div class="container m-b-50">
+  <div class="row p-50">
+    <div class="col-6" *ngFor="let testimony of testimonies">
+      <div class="d-flex justify-content-center p-6">
+        <div>
+          <div>
+            <img
+              src="../../../assets/images/doublequotes.png"
+              alt=""
+              width="15px"
+            />
+            <span>{{ testimony.description }}</span>
+            <img
+              src="../../../assets/images/doublequotes.png"
+              class="rotateimage"
+              alt=""
+              width="15px"
+            />
+          </div>
+          <div class="text-center m-t-40">
+            <h4 class="mb-5">
+              {{ testimony.testimonyName }}
+            </h4>
+            <small>{{ testimony.designation }}</small>
           </div>
         </div>
       </div>
     </div>
-  </ng-template>
-</p-carousel>
+  </div>
+</div>
 
 <app-footer></app-footer>

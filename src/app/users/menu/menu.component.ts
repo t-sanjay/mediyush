@@ -53,7 +53,11 @@ export class MenuComponent implements OnInit {
   }
 
   removeCourse(course) {
-    this.firebaseService.removeFromBag(course);
+    if (course.eventName != null || undefined) {
+      this.firebaseService.removeFromBagEvents(course);
+    } else {
+      this.firebaseService.removeFromBag(course);
+    }
   }
 
   signOut() {

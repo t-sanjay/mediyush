@@ -16,6 +16,9 @@ export class BlogsComponent implements OnInit {
   blogsData: any[];
   addBlogsDisplay: boolean = false;
   selectedBlog = [];
+
+  updateData = [];
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private messageService: MessageService,
@@ -72,5 +75,14 @@ export class BlogsComponent implements OnInit {
     } else {
       this.selectedBlog.push(data);
     }
+  }
+
+  updateItem(data) {
+    this.updateData = data;
+    this.addBlogsDisplay = true;
+  }
+
+  eraseData() {
+    this.updateData = [];
   }
 }

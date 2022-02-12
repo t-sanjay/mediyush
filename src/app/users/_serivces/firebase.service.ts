@@ -21,12 +21,33 @@ export class FirebaseService {
 
   eventsAll = [];
   bagData = [];
+  user: any;
   constructor(
     private firestore: AngularFirestore,
     private afStorage: AngularFireStorage
   ) {
     this.readAllCourses();
     this.readAllEvents();
+    this.user = JSON.parse(localStorage.getItem('userMed'));
+    if (
+      JSON.parse(localStorage.getItem('cartDataMediyush')) !== null ||
+      undefined
+    ) {
+      this.bagData = JSON.parse(localStorage.getItem('cartDataMediyush'));
+      this.cartSource.next(Object.assign([], this.bagData));
+    }
+    if (this.user !== null) {
+      this.firestore
+        .collection('users')
+        .doc(this.user.uid)
+        .valueChanges()
+        .subscribe((res) => this.readBagDataFromFireBase(res));
+    }
+  }
+
+  readBagDataFromFireBase(data) {
+    this.bagData = data.cart;
+    this.cartSource.next(Object.assign([], this.bagData));
   }
 
   readAds() {
@@ -83,8 +104,18 @@ export class FirebaseService {
     } else {
       this.totalPrice += data.price;
       this.totalPriceSource.next(this.totalPrice);
-      this.coursesAll.find((e) => e == data).inBag = true;
+      this.coursesAll.find((e) => e.id == data.id).inBag = true;
       this.bagData.push(data);
+
+      if (this.user !== null || undefined) {
+        this.firestore
+          .collection('users')
+          .doc(this.user.uid)
+          .update({ cart: this.bagData });
+      } else {
+        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
+      }
+
       this.cartSource.next(Object.assign([], this.bagData));
     }
   }
@@ -97,6 +128,14 @@ export class FirebaseService {
       this.totalPriceSource.next(this.totalPrice);
       this.eventsAll.find((e) => e == data).inBag = true;
       this.bagData.push(data);
+      if (this.user !== null || undefined) {
+        this.firestore
+          .collection('users')
+          .doc(this.user.uid)
+          .update({ cart: this.bagData });
+      } else {
+        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
+      }
       this.cartSource.next(Object.assign([], this.bagData));
     }
   }
@@ -104,12 +143,23 @@ export class FirebaseService {
   removeFromBagEvents(course) {
     this.eventsAll.find((e) => e == course).inBag = false;
 
-    if (this.bagData.indexOf(course) !== -1) {
+    if (this.bagData.find((e) => e.id == course.id) !== {} || null) {
       this.totalPrice -= course.price;
+      if (this.totalPrice < 0) {
+        this.totalPrice = 0;
+      }
       this.bagData.splice(
         this.bagData.findIndex((d) => d === course),
         1
       );
+      if (this.user !== null || undefined) {
+        this.firestore
+          .collection('users')
+          .doc(this.user.uid)
+          .update({ cart: this.bagData });
+      } else {
+        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
+      }
       this.cartSource.next(Object.assign([], this.bagData));
       this.totalPriceSource.next(this.totalPrice);
     }
@@ -120,16 +170,27 @@ export class FirebaseService {
   }
 
   removeFromBag(course) {
-    this.coursesAll.find((e) => e == course).inBag = false;
+    this.coursesAll.find((e) => e.id == course.id).inBag = false;
 
-    if (this.bagData.indexOf(course) !== -1) {
+    if (this.bagData.find((e) => e.id == course.id) !== {} || null) {
       this.totalPrice -= course.price;
+      if (this.totalPrice < 0) {
+        this.totalPrice = 0;
+      }
       this.bagData.splice(
         this.bagData.findIndex((d) => d === course),
         1
       );
       this.cartSource.next(Object.assign([], this.bagData));
       this.totalPriceSource.next(this.totalPrice);
+      if (this.user !== null || undefined) {
+        this.firestore
+          .collection('users')
+          .doc(this.user.uid)
+          .update({ cart: this.bagData });
+      } else {
+        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
+      }
     }
   }
 
@@ -159,9 +220,23 @@ export class FirebaseService {
     return this.firestore.collection('blogs').valueChanges();
   }
 
-  readBlogsByCategory(category) {
+  readCoursesByCategory(category) {
     return this.firestore
       .collection('courses', (ref) => ref.where('category', '==', category))
+      .valueChanges({ idField: 'id' });
+  }
+
+  updateUserName(name) {
+    let user = JSON.parse(localStorage.getItem('userMed'));
+    this.firestore
+      .collection('users')
+      .doc(user.uid)
+      .update({ displayName: name.value.fname + ' ' + name.value.lname });
+  }
+
+  getUserDetails(uid) {
+    return this.firestore
+      .collection('users', (ref) => ref.where('uid', '==', uid))
       .valueChanges();
   }
 }

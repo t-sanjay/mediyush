@@ -206,4 +206,8 @@ export class FirebaseService {
       this.firestore.collection('event').doc(element.id).delete();
     });
   }
+
+  readAllBookings() {
+    return this.firestore.collection('booking').valueChanges({ idField: 'id' });
+  }
 }

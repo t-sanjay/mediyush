@@ -1,4 +1,5 @@
 <app-menu></app-menu>
+<p-toast position="top-center"></p-toast>
 
 <main class="main pages">
   <div class="page-header breadcrumb-wrap">
@@ -69,11 +70,9 @@
                 >
                   <div class="card">
                     <div class="card-header">
-                      <h3 class="mb-0">
-                        Hello {{ user.providerData.displayName }}!
-                      </h3>
+                      <h3 class="mb-0">Hello {{ user[0].displayName }}!</h3>
                       <p>
-                        {{ user.email }}
+                        {{ user[0].email }}
                       </p>
                     </div>
                     <div class="card-body">
@@ -104,9 +103,9 @@
                           [value]="userBookings"
                           [rowHover]="true"
                           [rows]="10"
-                          [showCurrentPageReport]="true"
+                          [showCurrentPageReport]="false"
                           [rowsPerPageOptions]="[5, 10, 25, 50]"
-                          [paginator]="true"
+                          [paginator]="false"
                           [filterDelay]="0"
                         >
                           <ng-template pTemplate="header">
@@ -201,7 +200,7 @@
                       <h5>Account Details</h5>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form [formGroup]="updateAccountDetails">
                         <div class="row">
                           <div class="form-group col-md-6">
                             <label
@@ -212,6 +211,7 @@
                               class="form-control"
                               name="name"
                               type="text"
+                              formControlName="fname"
                             />
                           </div>
                           <div class="form-group col-md-6">
@@ -222,28 +222,14 @@
                               required=""
                               class="form-control"
                               name="phone"
-                            />
-                          </div>
-
-                          <div class="form-group col-md-12">
-                            <label
-                              >Email Address
-                              <span class="required">*</span></label
-                            >
-                            <input
-                              required=""
-                              class="form-control"
-                              name="email"
-                              type="email"
+                              formControlName="lname"
                             />
                           </div>
 
                           <div class="col-md-12">
                             <button
-                              type="submit"
                               class="btn btn-fill-out submit font-weight-bold"
-                              name="submit"
-                              value="Submit"
+                              (click)="updateUserData()"
                             >
                               Save Change
                             </button>

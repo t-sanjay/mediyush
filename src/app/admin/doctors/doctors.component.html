@@ -11,10 +11,12 @@
   [(visible)]="addDoctorDisplay"
   [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
   [style]="{ width: '45vw' }"
+  (onHide)="eraseData()"
 >
   <app-add-doctors
     (hideDialog)="addDoctorDisplay = false"
     (hideAddData)="changeSaveDataDisplay($event)"
+    [updateData]="updateData"
   ></app-add-doctors>
 </p-dialog>
 <form>
@@ -70,7 +72,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-doctor>
-          <tr class="p-selectable-row">
+          <tr class="p-selectable-row" (click)="updateItem(doctor)">
             <td>
               <p-checkbox
                 name="doctor.doctorsName"

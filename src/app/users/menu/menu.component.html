@@ -1,57 +1,16 @@
-<header class="header-area header-style-1 header-style-5 header-height-2">
-  <div class="header-middle header-middle-ptb-1 d-none d-lg-block">
-    <div class="container">
-      <div class="header-wrap">
-        <div class="logo logo-width-1">
-          <a><img src="../../../assets/icons/MediyushPNG.png" alt="logo" /></a>
-        </div>
-        <div class="header-right">
-          <div class="search-style-2"></div>
-          <div class="header-action-right">
-            <div class="social-media">
-              <p class="mb-0 d-flex">
-                <a class="d-flex align-items-center justify-content-center px-2"
-                  ><span
-                    ><i
-                      class="pi pi-facebook"
-                      style="font-size: 1.3rem"
-                    ></i></span
-                ></a>
-                <a
-                  class="d-flex align-items-center justify-content-center px-2"
-                  href="https://twitter.com/mediyush?t=mbH4RPM4HvGzJtM5YAvFDw&s=09"
-                  target="_blank"
-                  ><span
-                    ><i
-                      class="pi pi-twitter"
-                      style="font-size: 1.3rem"
-                    ></i></span
-                ></a>
-                <a
-                  class="d-flex align-items-center justify-content-center px-2"
-                  href="https://www.instagram.com/mediyush/"
-                  target="_blank"
-                  ><span
-                    ><i
-                      class="pi pi-instagram"
-                      style="font-size: 1.3rem"
-                    ></i></span
-                ></a>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="header-bottom header-bottom-bg-color sticky-bar">
+<header class="header-area header-style-1 header-height-2">
+  <div class="header-bottom header-bottom-bg-color sticky-bar stick">
     <div class="container">
       <div class="header-wrap header-space-between position-relative">
-        <div class="logo logo-width-1 d-block d-lg-none"></div>
         <div class="header-nav d-none d-lg-flex">
-          <div class="main-categori-wrap d-none d-lg-block">
-            <div class="logo logo-width-1"></div>
+          <div class="">
+            <a class="logo">
+              <img
+                src="../../../assets/icons/MediyushSVG.svg"
+                alt=""
+                width="50%"
+              />
+            </a>
           </div>
           <div
             class="main-menu main-menu-padding-1 p-l-200 main-menu-lh-2 d-none d-lg-block font-heading"
@@ -76,14 +35,6 @@
                     <span class="pl-1">Courses</span></a
                   >
                 </li>
-                <!-- <li>
-                  <a
-                    [ngClass]="{ active: activeState === 'Events' }"
-                    [routerLink]="['/dashboard/events']"
-                    ><i class="pi pi-calendar" style="font-size: 1rem"></i>
-                    <span class="pl-1">Events</span></a
-                  >
-                </li> -->
                 <li>
                   <a
                     [ngClass]="{ active: activeState === 'Gallery' }"
@@ -92,6 +43,7 @@
                     <span class="pl-1">Events</span></a
                   >
                 </li>
+
                 <li>
                   <a
                     [ngClass]="{ active: activeState === 'Blogs' }"
@@ -110,12 +62,13 @@
               <div class="header-action-2">
                 <div class="header-action-icon-2">
                   <a class="mini-cart-icon">
-                    <i
-                      class="pi pi-shopping-cart px-1"
-                      style="font-size: 2rem"
-                    ></i>
+                    <i class="pi pi-shopping-cart px-1"></i>
                   </a>
-                  <a><span class="lable">Cart</span></a>
+                  <a
+                    ><span class="font-heading px-1 main-menu-lh-2"
+                      >Cart</span
+                    ></a
+                  >
                   <div class="cart-dropdown-wrap cart-dropdown-hm2">
                     <ul>
                       <li *ngFor="let item of cartData">
@@ -143,6 +96,7 @@
                         </div>
                       </li>
                     </ul>
+
                     <div class="shopping-cart-footer">
                       <div class="shopping-cart-total">
                         <h4>
@@ -159,9 +113,13 @@
                 </div>
                 <div class="header-action-icon-2">
                   <a>
-                    <i class="pi pi-user" style="font-size: 2rem"></i>
+                    <i class="pi pi-user"></i>
                   </a>
-                  <a><span class="lable ml-0">Account</span></a>
+                  <a
+                    ><span class="font-heading px-1 main-menu-lh-2"
+                      >Login</span
+                    ></a
+                  >
                   <div
                     class="cart-dropdown-wrap cart-dropdown-hm2 account-dropdown"
                   >
@@ -187,6 +145,14 @@
                         >
                       </li>
                     </ul>
+                  </div>
+                </div>
+                <div class="header-action-icon-2">
+                  <div class="main-categori-wrap d-none d-lg-block">
+                    <a class="categories-button-active" href="#">
+                      <span class="et">Contact</span>
+                      <i class="pi pi-arrow-right"></i>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -273,7 +239,12 @@
         </div>
         <div class="mobile-header-info-wrap">
           <div class="single-mobile-header-info">
-            <a><i class="pi pi-user"></i>Log In / Sign Up </a>
+            <a *ngIf="!loggedIn" [routerLink]="['/sign-in']"
+              ><i class="pi pi-user"></i>Log In / Sign Up
+            </a>
+            <a *ngIf="loggedIn" [routerLink]="['/dashboard/profile']"
+              ><i class="pi pi-user"></i>Account</a
+            >
           </div>
         </div>
         <div class="mb-50">
@@ -282,17 +253,17 @@
             class="px-4"
             href="https://twitter.com/mediyush?t=mbH4RPM4HvGzJtM5YAvFDw&s=09"
             target="_blank"
-            ><i class="pi pi-twitter" style="font-size: 1.3rem"></i
-          ></a>
+            ><img src="assets/imgs/theme/icons/icon-twitter-white.svg" alt=""
+          /></a>
           <a class="px-4"
-            ><i class="pi pi-facebook" style="font-size: 1.3rem"></i
-          ></a>
+            ><img src="assets/imgs/theme/icons/icon-facebook-white.svg" alt=""
+          /></a>
           <a
             class="px-4"
             href="https://www.instagram.com/mediyush/"
             target="_blank"
-            ><i class="pi pi-instagram" style="font-size: 1.3rem"></i
-          ></a>
+            ><img src="assets/imgs/theme/icons/icon-instagram-white.svg" alt=""
+          /></a>
         </div>
         <div class="site-copyright">
           Copyright 2021 © Mediyush. All rights reserved.

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FirebaseService } from '../_services/firebase.service';
@@ -9,9 +16,11 @@ import { FirebaseService } from '../_services/firebase.service';
   styleUrls: ['./add-ads.component.css'],
   providers: [ConfirmationService],
 })
-export class AddAdsComponent implements OnInit {
+export class AddAdsComponent implements OnInit, OnChanges {
   @Output() hideAddData = new EventEmitter<boolean>();
   @Output() hideDialog = new EventEmitter<boolean>();
+  @Input() updateData;
+  deleteAd: FormGroup;
 
   addAds = new FormGroup({
     adsName: new FormControl('', Validators.required),
@@ -28,6 +37,11 @@ export class AddAdsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+  ngOnChanges() {
+    this.addAds.reset();
+    this.deleteAd = this.updateData;
+    this.addAds.patchValue(this.updateData);
+  }
 
   showSaveDialog() {
     this.addAds.markAllAsTouched();
@@ -44,6 +58,9 @@ export class AddAdsComponent implements OnInit {
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
+          if (this.deleteAd.value !== null || undefined || {}) {
+            this.firebaseService.deleteAds([this.deleteAd]);
+          }
           this.firebaseService.createAd(this.addAds.value);
           this.addAds.reset();
           this.hideAddData.emit(false);

@@ -1,8 +1,24 @@
 <app-menu [activeState]="'Courses'"></app-menu>
 <p-toast key="error" position="top-center"></p-toast>
 <p-toast key="success" position="top-center"></p-toast>
+<p-dialog
+  header="Select a Category"
+  [(visible)]="categoryDisplay"
+  [style]="{ width: '40vw' }"
+>
+  <div class="sidebar-widget widget-category-2 mb-30">
+    <h5 class="section-title style-1 mb-30">Categories</h5>
+    <ul>
+      <span *ngFor="let category of categories">
+        <li (click)="categoryChange(category)">
+          <p>{{ category.label }}</p>
+        </li>
+      </span>
+    </ul>
+  </div>
+</p-dialog>
 
-<main class="main">
+<main class="main m-t-80">
   <div class="page-header breadcrumb-wrap">
     <div class="container">
       <div class="breadcrumb">

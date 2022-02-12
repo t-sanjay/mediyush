@@ -20,6 +20,8 @@ export class TestimonialsComponent implements OnInit {
 
   selectedTestimony = [];
 
+  updateData = [];
+
   @ViewChild('dt') table: Table;
 
   constructor(
@@ -80,5 +82,13 @@ export class TestimonialsComponent implements OnInit {
       severity: 'success',
       summary: 'Testimony Added',
     });
+  }
+  updateItem(data) {
+    this.updateData = data;
+    this.addTestimonyDisplay = true;
+  }
+
+  eraseData() {
+    this.updateData = [];
   }
 }

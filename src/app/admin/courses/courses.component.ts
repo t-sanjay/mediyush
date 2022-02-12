@@ -25,7 +25,7 @@ export class CoursesComponent implements OnInit {
 
   @ViewChild('dt') table: Table;
 
-  updateData = new FormGroup({});
+  updateData = [];
   constructor(
     private primengConfig: PrimeNGConfig,
     private messageService: MessageService,
@@ -66,7 +66,7 @@ export class CoursesComponent implements OnInit {
   }
 
   changeSaveDataDisplay(value: any) {
-    this.updateData = new FormGroup({});
+    this.updateData = [];
     this.addCourseDisplay = false;
     this.messageService.add({
       key: 'addedSuccess',
@@ -91,5 +91,9 @@ export class CoursesComponent implements OnInit {
   updateItem(data) {
     this.updateData = data;
     this.addCourseDisplay = true;
+  }
+
+  eraseData() {
+    this.updateData = [];
   }
 }

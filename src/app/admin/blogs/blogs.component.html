@@ -10,10 +10,12 @@
   [(visible)]="addBlogsDisplay"
   [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
   [style]="{ width: '45vw' }"
+  (onHide)="eraseData()"
 >
   <app-add-blogs
     (hideDialog)="addBlogsDisplay = false"
     (hideAddData)="changeSaveDataDisplay($event)"
+    [updateData]="updateData"
   ></app-add-blogs>
 </p-dialog>
 <app-menu [activeState]="'Blogs'"></app-menu>
@@ -76,7 +78,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-blog>
-          <tr class="p-selectable-row">
+          <tr class="p-selectable-row" (click)="updateItem(blog)">
             <td>
               <p-checkbox
                 name="blog.blogName"

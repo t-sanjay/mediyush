@@ -19,6 +19,7 @@ export class EventsComponent implements OnInit {
   eventsData = [];
 
   @ViewChild('dt') table: Table;
+  updateData = [];
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -79,5 +80,14 @@ export class EventsComponent implements OnInit {
       severity: 'success',
       summary: 'Course Added',
     });
+  }
+
+  updateItem(data) {
+    this.updateData = data;
+    this.addEventDisplay = true;
+  }
+
+  eraseData() {
+    this.updateData = [];
   }
 }

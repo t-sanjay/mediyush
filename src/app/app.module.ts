@@ -21,8 +21,10 @@ import { ToastModule } from 'primeng/toast';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { SpinnerInterceptor } from './interceptors/SpinnerInterceptor';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -47,8 +49,17 @@ import { SpinnerComponent } from './spinner/spinner.component';
     AngularFireAuthModule,
     AngularFirestoreModule,
     CardModule,
+    OverlayModule,
   ],
-  providers: [AuthService, MessageService],
+  providers: [
+    AuthService,
+    MessageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

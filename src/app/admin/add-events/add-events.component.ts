@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FirebaseService } from '../_services/firebase.service';
@@ -8,9 +15,12 @@ import { FirebaseService } from '../_services/firebase.service';
   templateUrl: './add-events.component.html',
   styleUrls: ['./add-events.component.css'],
 })
-export class AddEventsComponent implements OnInit {
+export class AddEventsComponent implements OnInit, OnChanges {
   @Output() hideAddData = new EventEmitter<boolean>();
   @Output() hideDialog = new EventEmitter<boolean>();
+  @Input() updateData;
+
+  deleteEvent: FormGroup;
 
   addEvents = new FormGroup({
     eventName: new FormControl('', Validators.required),
@@ -30,6 +40,12 @@ export class AddEventsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  ngOnChanges() {
+    this.addEvents.reset();
+    this.deleteEvent = this.updateData;
+    this.addEvents.patchValue(this.updateData);
+  }
+
   showSaveDialog() {
     this.addEvents.markAllAsTouched();
     if (this.addEvents.invalid) {
@@ -45,6 +61,9 @@ export class AddEventsComponent implements OnInit {
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
+          if (this.deleteEvent.value !== null || undefined || {}) {
+            this.firebaseService.deleteEvent([this.deleteEvent]);
+          }
           this.firebaseService.createEvent(this.addEvents.value);
           this.addEvents.reset();
           this.hideAddData.emit(false);

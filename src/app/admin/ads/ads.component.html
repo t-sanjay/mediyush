@@ -11,10 +11,12 @@
   [(visible)]="addAdsDisplay"
   [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
   [style]="{ width: '60vw' }"
+  (onHide)="eraseData()"
 >
   <app-add-ads
     (hideDialog)="addAdsDisplay = false"
     (hideAddData)="changeSaveDataDisplay($event)"
+    [updateData]="updateData"
   ></app-add-ads>
 </p-dialog>
 <form>
@@ -78,7 +80,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-ad>
-          <tr class="p-selectable-row">
+          <tr class="p-selectable-row" (click)="updateItem(ad)">
             <td>
               <p-checkbox
                 name="ad.adsName"

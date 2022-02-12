@@ -12,10 +12,12 @@
   [(visible)]="addTestimonyDisplay"
   [breakpoints]="{ '960px': '65vw', '640px': '100vw' }"
   [style]="{ width: '45vw' }"
+  (onHide)="eraseData()"
 >
   <app-add-testimonials
     (hideDialog)="addTestimonyDisplay = false"
     (hideAddData)="changeSaveDataDisplay($event)"
+    [updateData]="updateData"
   ></app-add-testimonials>
 </p-dialog>
 <form>
@@ -74,7 +76,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-testimony>
-          <tr class="p-selectable-row">
+          <tr class="p-selectable-row" (click)="updateItem(testimony)">
             <td>
               <p-checkbox
                 name="testimony.doctorsName"

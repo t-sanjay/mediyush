@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from '../_services/firebase.service';
 
 @Component({
   selector: 'app-booking',
@@ -8,7 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class BookingComponent implements OnInit {
   bookings: any[];
 
-  constructor() {}
+  constructor(private firebaseService: FirebaseService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.firebaseService.readAllBookings().subscribe((res) => this.getAll(res));
+  }
+  getAll(data) {
+    this.bookings = data;
+    console.log(this.bookings);
+  }
 }

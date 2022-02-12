@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MessageService } from 'primeng/api';
+import { Table } from 'primeng/table';
 import { FirebaseService } from '../_serivces/firebase.service';
 
 @Component({
@@ -9,17 +12,33 @@ import { FirebaseService } from '../_serivces/firebase.service';
 export class ProfileComponent implements OnInit {
   user: any;
 
+  updateAccountDetails = new FormGroup({
+    fname: new FormControl(''),
+    lname: new FormControl(''),
+  });
   userBookingsRaw = [];
   userBookings = [];
-  constructor(private firebaseService: FirebaseService) {}
+
+  @ViewChild('dt') table: Table;
+
+  constructor(
+    private firebaseService: FirebaseService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('userMed'));
-    console.log(this.user);
-
+    this.firebaseService.getUserDetails(this.user.uid).subscribe((res) => {
+      this.getUser(res);
+    });
     this.firebaseService.getMyBookings(this.user.uid).subscribe((res) => {
       this.getRawBookingsData(res);
     });
+  }
+
+  getUser(data) {
+    this.user = data;
+    console.log(this.user);
   }
 
   getRawBookingsData(data) {
@@ -39,5 +58,14 @@ export class ProfileComponent implements OnInit {
       });
     });
     console.log(this.userBookings);
+  }
+
+  updateUserData() {
+    this.firebaseService.updateUserName(this.updateAccountDetails);
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Details Updated',
+      detail: 'Name is updated',
+    });
   }
 }

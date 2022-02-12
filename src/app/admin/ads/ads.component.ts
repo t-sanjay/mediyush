@@ -18,6 +18,8 @@ export class AdsComponent implements OnInit {
   adsData: any[];
   selectedAd = [];
 
+  updateData = [];
+
   constructor(
     private primengConfig: PrimeNGConfig,
     private messageService: MessageService,
@@ -55,6 +57,7 @@ export class AdsComponent implements OnInit {
     this.addAdsDisplay = true;
   }
   changeSaveDataDisplay(data) {
+    this.updateData = [];
     this.addAdsDisplay = false;
     this.messageService.add({
       key: 'addedSuccess',
@@ -72,5 +75,14 @@ export class AdsComponent implements OnInit {
     } else {
       this.selectedAd.push(data);
     }
+  }
+
+  updateItem(data) {
+    this.updateData = data;
+    this.addAdsDisplay = true;
+  }
+
+  eraseData() {
+    this.updateData = [];
   }
 }

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FirebaseService } from '../_services/firebase.service';
@@ -9,9 +16,12 @@ import { FirebaseService } from '../_services/firebase.service';
   styleUrls: ['./add-testimonials.component.css'],
   providers: [ConfirmationService],
 })
-export class AddTestimonialsComponent implements OnInit {
+export class AddTestimonialsComponent implements OnInit, OnChanges {
   @Output() hideAddData = new EventEmitter<boolean>();
   @Output() hideDialog = new EventEmitter<boolean>();
+  @Input() updateData;
+
+  deleteTestimony: FormGroup;
 
   addTestimony = new FormGroup({
     testimonyName: new FormControl('', Validators.required),
@@ -27,6 +37,11 @@ export class AddTestimonialsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+  ngOnChanges() {
+    this.addTestimony.reset();
+    this.deleteTestimony = this.updateData;
+    this.addTestimony.patchValue(this.updateData);
+  }
 
   showSaveDialog() {
     this.addTestimony.markAllAsTouched();
@@ -43,6 +58,9 @@ export class AddTestimonialsComponent implements OnInit {
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
+          if (this.deleteTestimony.value !== null || undefined || {}) {
+            this.firebaseService.deleteTestimony([this.deleteTestimony]);
+          }
           this.firebaseService.createTestimony(this.addTestimony.value);
           this.addTestimony.reset();
           this.hideAddData.emit(false);

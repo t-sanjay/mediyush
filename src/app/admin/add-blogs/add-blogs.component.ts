@@ -1,4 +1,11 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { FirebaseService } from '../_services/firebase.service';
@@ -9,9 +16,12 @@ import { FirebaseService } from '../_services/firebase.service';
   styleUrls: ['./add-blogs.component.css'],
   providers: [ConfirmationService],
 })
-export class AddBlogsComponent implements OnInit {
+export class AddBlogsComponent implements OnInit, OnChanges {
   @Output() hideAddData = new EventEmitter<boolean>();
   @Output() hideDialog = new EventEmitter<boolean>();
+  @Input() updateData;
+
+  deleteBlog: FormGroup;
 
   addBlog = new FormGroup({
     blogName: new FormControl('', Validators.required),
@@ -28,6 +38,11 @@ export class AddBlogsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+  ngOnChanges() {
+    this.addBlog.reset();
+    this.deleteBlog = this.updateData;
+    this.addBlog.patchValue(this.updateData);
+  }
 
   showSaveDialog() {
     this.addBlog.markAllAsTouched();
@@ -44,6 +59,9 @@ export class AddBlogsComponent implements OnInit {
         header: 'Confirmation',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
+          if (this.deleteBlog.value !== null || undefined || {}) {
+            this.firebaseService.deleteBlogs([this.deleteBlog]);
+          }
           this.firebaseService.createBlog(this.addBlog.value);
           this.addBlog.reset();
           this.hideAddData.emit(false);
