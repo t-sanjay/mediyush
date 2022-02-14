@@ -17,6 +17,5 @@ export class UsersComponent implements OnInit {
 
   getAllUsers(users: any) {
     this.users = users;
-    console.log(this.users);
   }
 }

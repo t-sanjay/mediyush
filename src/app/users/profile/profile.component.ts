@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Table } from 'primeng/table';
 import { FirebaseService } from '../_serivces/firebase.service';
@@ -23,11 +24,16 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private firebaseService: FirebaseService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
     this.user = JSON.parse(localStorage.getItem('userMed'));
+
+    if (this.user == null) {
+      this.route.navigateByUrl('/sign-in');
+    }
     this.firebaseService.getUserDetails(this.user.uid).subscribe((res) => {
       this.getUser(res);
     });
@@ -38,12 +44,11 @@ export class ProfileComponent implements OnInit {
 
   getUser(data) {
     this.user = data;
-    console.log(this.user);
   }
 
   getRawBookingsData(data) {
     this.userBookingsRaw = data;
-    console.log(this.userBookingsRaw);
+
     this.userBookingsRaw.forEach((element) => {
       element.courses.forEach((courses) => {
         this.userBookings.push({
@@ -57,7 +62,6 @@ export class ProfileComponent implements OnInit {
         });
       });
     });
-    console.log(this.userBookings);
   }
 
   updateUserData() {

@@ -19,7 +19,7 @@
                 class="single-hero-slider single-animation-wrap"
                 style="background-image: url({{ ad.fileName }}); "
               >
-                <div class="content-slider">
+                <!-- <div class="content-slider">
                   <h1 class="display-2">
                     Empowering Professionals to <br />
                     era of new learning
@@ -29,7 +29,7 @@
                       <button class="btn" type="submit">Join Us</button></a
                     >
                   </p>
-                </div>
+                </div> -->
               </div>
             </ng-template>
           </p-carousel>
@@ -235,67 +235,62 @@
           <div class="sort-by-cover"></div>
         </div>
       </div>
-      <div class="product-list mb-50">
+      <div class="mb-50">
         <div class="row">
-          <div class="product-cart-wrap" *ngFor="let course of courses">
-            <div class="col-6">
-              <div class="row">
-                <div class="col-6">
+          <div class="col-6 p-t-20" *ngFor="let course of courses">
+            <div class="row">
+              <div class="col-6">
+                <div class="">
                   <div class="">
                     <div class="">
-                      <div class="">
-                        <a [routerLink]="['/dashboard/courses']">
-                          <img class="" src="{{ course.fileName }}" alt="" />
-                        </a>
-                      </div>
-                    </div>
-                    <div
-                      class="product-badges product-badges-position product-badges-mrg"
-                    >
-                      <!-- <span class="hot">Trending</span> -->
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="product-content-wrap">
-                    <div class="product-category">
-                      <a [routerLink]="['/dashboard/courses']">{{
-                        course.host
-                      }}</a>
-                    </div>
-                    <h2>
-                      <a [routerLink]="['/dashboard/courses']">{{
-                        course.courseName
-                      }}</a>
-                    </h2>
-                    <div class="product-rate-cover"></div>
-                    <p class="mt-15 mb-15">
-                      {{ course.description }}
-                    </p>
-
-                    <div class="product-price">
-                      <span>₹{{ course.price }} </span>
-                      <span class="old-price"
-                        >₹{{ (course.price * 110) / 100 }}</span
-                      >
-                    </div>
-
-                    <div class="mt-30">
                       <a [routerLink]="['/dashboard/courses']">
-                        <div class="row">
-                          <div class="col-5">
-                            <p class="link">Learn More</p>
-                          </div>
-                          <div class="col-1">
-                            <i
-                              class="pi pi-chevron-right link"
-                              style="font-size: 1.5rem"
-                            ></i>
-                          </div>
-                        </div>
+                        <img class="" src="{{ course.fileName }}" alt="" />
                       </a>
                     </div>
+                  </div>
+                  <div
+                    class="product-badges product-badges-position product-badges-mrg"
+                  >
+                    <!-- <span class="hot">Trending</span> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="product-content-wrap">
+                  <div class="product-category">
+                    <a [routerLink]="['/dashboard/courses']">{{
+                      course.host
+                    }}</a>
+                  </div>
+                  <h2>
+                    <a [routerLink]="['/dashboard/courses']">{{
+                      course.courseName
+                    }}</a>
+                  </h2>
+                  <div class="product-rate-cover"></div>
+                  <p class="mt-15 mb-15">
+                    {{ course.description }}
+                  </p>
+
+                  <div class="product-price">
+                    <span>₹{{ course.price }} </span>
+                  </div>
+
+                  <div class="mt-30">
+                    <a [routerLink]="['/dashboard/courses']">
+                      <div class="row">
+                        <div class="col-5">
+                          <p class="link">Learn More</p>
+                        </div>
+                        <div class="col-1">
+                          <i
+                            class="pi pi-chevron-right link"
+                            style="font-size: 1.5rem"
+                          ></i>
+                        </div>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -330,14 +325,14 @@
             <img
               src="../../../assets/images/doublequotes.png"
               alt=""
-              width="15px"
+              width="12px"
             />
             <span>{{ testimony.description }}</span>
             <img
               src="../../../assets/images/doublequotes.png"
               class="rotateimage"
               alt=""
-              width="15px"
+              width="12px"
             />
           </div>
           <div class="text-center m-t-40">

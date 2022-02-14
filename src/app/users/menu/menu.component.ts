@@ -61,6 +61,7 @@ export class MenuComponent implements OnInit {
   }
 
   signOut() {
+    this.loggedIn = false;
     this.authService.signOut();
   }
 

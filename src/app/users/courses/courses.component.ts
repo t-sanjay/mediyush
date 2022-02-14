@@ -76,7 +76,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
       }
     });
     this.courses = data;
-    console.log(this.courses);
   }
 
   categoryChange(data) {

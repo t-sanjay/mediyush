@@ -16,6 +16,5 @@ export class BookingComponent implements OnInit {
   }
   getAll(data) {
     this.bookings = data;
-    console.log(this.bookings);
   }
 }

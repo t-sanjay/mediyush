@@ -69,8 +69,4 @@ export class UsersDashboardComponent implements OnInit, OnDestroy {
   getTestimonyData(data) {
     this.testimonies = data;
   }
-
-  addToCart(data) {
-    console.log(data);
-  }
 }

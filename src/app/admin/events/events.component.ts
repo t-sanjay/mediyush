@@ -59,7 +59,6 @@ export class EventsComponent implements OnInit {
   }
 
   selectedEvents(data) {
-    console.log(data);
     if (
       this.selectedEvent.findIndex((course) => course.id === data.id) !== -1
     ) {
@@ -70,7 +69,6 @@ export class EventsComponent implements OnInit {
     } else {
       this.selectedEvent.push(data);
     }
-    console.log(this.selectedEvent);
   }
 
   changeSaveDataDisplay(value: any) {

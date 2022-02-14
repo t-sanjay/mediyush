@@ -36,7 +36,6 @@ export class DoctorsComponent implements OnInit {
 
   getAll(data) {
     this.doctorsData = data;
-    console.log(this.doctorsData);
   }
 
   addDoctor() {

@@ -4,7 +4,7 @@
       <div class="header-wrap header-space-between position-relative">
         <div class="header-nav d-none d-lg-flex">
           <div class="">
-            <a class="logo">
+            <a class="logo" [routerLink]="['/dashboard']">
               <img
                 src="../../../assets/icons/MediyushSVG.svg"
                 alt=""
@@ -63,6 +63,7 @@
                 <div class="header-action-icon-2">
                   <a class="mini-cart-icon">
                     <i class="pi pi-shopping-cart px-1"></i>
+                    <span class="pro-count blue">{{ cartData.length }}</span>
                   </a>
                   <a
                     ><span class="font-heading px-1 main-menu-lh-2"
@@ -116,8 +117,14 @@
                     <i class="pi pi-user"></i>
                   </a>
                   <a
-                    ><span class="font-heading px-1 main-menu-lh-2"
+                    ><span
+                      *ngIf="!loggedIn"
+                      class="font-heading px-1 main-menu-lh-2"
                       >Login</span
+                    ><span
+                      *ngIf="loggedIn"
+                      class="font-heading px-1 main-menu-lh-2"
+                      >Account</span
                     ></a
                   >
                   <div
@@ -126,7 +133,7 @@
                     <ul>
                       <li *ngIf="loggedIn">
                         <a [routerLink]="['/dashboard/profile']"
-                          ><i class="pi pi-user-edit"></i> My Account</a
+                          ><i class="pi pi-user-edit"></i> Profile</a
                         >
                       </li>
                       <li *ngIf="loggedIn">
@@ -149,7 +156,7 @@
                 </div>
                 <div class="header-action-icon-2">
                   <div class="main-categori-wrap d-none d-lg-block">
-                    <a class="categories-button-active" href="#">
+                    <a class="categories-button-active">
                       <span class="et">Contact</span>
                       <i class="pi pi-arrow-right"></i>
                     </a>
@@ -244,6 +251,11 @@
             </a>
             <a *ngIf="loggedIn" [routerLink]="['/dashboard/profile']"
               ><i class="pi pi-user"></i>Account</a
+            >
+          </div>
+          <div class="single-mobile-header-info">
+            <a *ngIf="loggedIn" (click)="signOut()"
+              ><i class="pi pi-user"></i>Sign Out</a
             >
           </div>
         </div>

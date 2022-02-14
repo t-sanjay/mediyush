@@ -36,6 +36,10 @@ export class FirebaseService {
       this.bagData = JSON.parse(localStorage.getItem('cartDataMediyush'));
       this.cartSource.next(Object.assign([], this.bagData));
     }
+    this.bagData.forEach((element) => {
+      this.totalPrice += element.price;
+      this.totalPriceSource.next(this.totalPrice);
+    });
     if (this.user !== null) {
       this.firestore
         .collection('users')
@@ -195,6 +199,15 @@ export class FirebaseService {
   }
 
   addBooking(data) {
+    this.totalPrice = 0;
+    this.totalPriceSource.next(this.totalPrice);
+    this.bagData.forEach((element) => {
+      element.inBag = false;
+    });
+    this.cartSource.next(Object.assign([], this.bagData));
+    this.bagData = [];
+    this.cartSource.next(Object.assign([], this.bagData));
+
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection('booking')

@@ -33,7 +33,6 @@ export class BlogsComponent implements OnInit {
 
   getAll(data) {
     this.blogsData = data;
-    console.log(this.blogsData);
   }
 
   addBlog() {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -8,9 +9,10 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
   providers: [MessageService],
 })
 export class AppComponent implements OnInit {
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(private primengConfig: PrimeNGConfig, private router: Router) {}
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    this.router.navigate(['']);
   }
   title = 'Mediyush';
 }

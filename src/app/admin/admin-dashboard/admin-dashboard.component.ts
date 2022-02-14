@@ -11,7 +11,5 @@ export class AdminDashboardComponent implements OnInit {
 
   ngOnInit() {}
 
-  testClass($event) {
-    console.log($event);
-  }
+  testClass($event) {}
 }

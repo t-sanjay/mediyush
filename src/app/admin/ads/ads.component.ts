@@ -33,7 +33,6 @@ export class AdsComponent implements OnInit {
 
   getAll(data) {
     this.adsData = data;
-    console.log(this.adsData);
   }
 
   deleteAd() {
