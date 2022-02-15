@@ -1,26 +1,41 @@
 import {
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-import { SpinnerOverlayService } from '../_services/spinner-overlay-service.service';
+import { finalize, tap } from 'rxjs/operators';
+import { SpinnerService } from '../spinner.service';
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
-  constructor(private readonly spinnerOverlayService: SpinnerOverlayService) {}
+  constructor(private readonly spinnerService: SpinnerService) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    const spinnerSubscription: Subscription =
-      this.spinnerOverlayService.spinner$.subscribe();
-    return next
-      .handle(req)
-      .pipe(finalize(() => spinnerSubscription.unsubscribe()));
+    this.spinnerService.requestStarted();
+    return this.handler(next, req);
+  }
+
+  handler(next, req) {
+    return next.handle(req).pipe(
+      tap(
+        (event) => {
+          if (event instanceof HttpResponse) {
+            this.spinnerService.requestEnded();
+          }
+        },
+        (error: HttpErrorResponse) => {
+          this.spinnerService.resetSpinner();
+          throw error;
+        }
+      )
+    );
   }
 }

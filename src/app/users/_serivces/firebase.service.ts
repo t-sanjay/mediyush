@@ -28,30 +28,27 @@ export class FirebaseService {
   ) {
     this.readAllCourses();
     this.readAllEvents();
-    this.user = JSON.parse(localStorage.getItem('userMed'));
-    if (
-      JSON.parse(localStorage.getItem('cartDataMediyush')) !== null ||
-      undefined
-    ) {
-      this.bagData = JSON.parse(localStorage.getItem('cartDataMediyush'));
-      this.cartSource.next(Object.assign([], this.bagData));
-    }
-    this.bagData.forEach((element) => {
-      this.totalPrice += element.price;
-      this.totalPriceSource.next(this.totalPrice);
-    });
-    if (this.user !== null) {
+
+    if (JSON.parse(localStorage.getItem('userMed')) !== null) {
       this.firestore
         .collection('users')
-        .doc(this.user.uid)
-        .valueChanges()
-        .subscribe((res) => this.readBagDataFromFireBase(res));
+        .doc(JSON.parse(localStorage.getItem('userMed')).uid)
+        .snapshotChanges()
+        .subscribe((res) => {
+          this.readBagDataFromFireBase(res);
+        });
     }
   }
 
   readBagDataFromFireBase(data) {
-    this.bagData = data.cart;
-    this.cartSource.next(Object.assign([], this.bagData));
+    if (data.cart !== undefined || null) {
+      this.bagData = data.cart;
+      this.bagData.forEach((e) => {
+        this.totalPrice += e.price;
+      });
+
+      this.cartSource.next(Object.assign([], this.bagData));
+    }
   }
 
   readAds() {
@@ -110,16 +107,7 @@ export class FirebaseService {
       this.totalPriceSource.next(this.totalPrice);
       this.coursesAll.find((e) => e.id == data.id).inBag = true;
       this.bagData.push(data);
-
-      if (this.user !== null || undefined) {
-        this.firestore
-          .collection('users')
-          .doc(this.user.uid)
-          .update({ cart: this.bagData });
-      } else {
-        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
-      }
-
+      this.saveBagToStorage(this.bagData);
       this.cartSource.next(Object.assign([], this.bagData));
     }
   }
@@ -132,20 +120,13 @@ export class FirebaseService {
       this.totalPriceSource.next(this.totalPrice);
       this.eventsAll.find((e) => e == data).inBag = true;
       this.bagData.push(data);
-      if (this.user !== null || undefined) {
-        this.firestore
-          .collection('users')
-          .doc(this.user.uid)
-          .update({ cart: this.bagData });
-      } else {
-        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
-      }
+      this.saveBagToStorage(this.bagData);
       this.cartSource.next(Object.assign([], this.bagData));
     }
   }
 
   removeFromBagEvents(course) {
-    this.eventsAll.find((e) => e == course).inBag = false;
+    this.eventsAll.find((e) => e.id == course.id).inBag = false;
 
     if (this.bagData.find((e) => e.id == course.id) !== {} || null) {
       this.totalPrice -= course.price;
@@ -156,14 +137,7 @@ export class FirebaseService {
         this.bagData.findIndex((d) => d === course),
         1
       );
-      if (this.user !== null || undefined) {
-        this.firestore
-          .collection('users')
-          .doc(this.user.uid)
-          .update({ cart: this.bagData });
-      } else {
-        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
-      }
+      this.removeBagFromStorage(this.bagData);
       this.cartSource.next(Object.assign([], this.bagData));
       this.totalPriceSource.next(this.totalPrice);
     }
@@ -185,18 +159,41 @@ export class FirebaseService {
         this.bagData.findIndex((d) => d === course),
         1
       );
+      this.removeBagFromStorage(this.bagData);
+
       this.cartSource.next(Object.assign([], this.bagData));
       this.totalPriceSource.next(this.totalPrice);
-      if (this.user !== null || undefined) {
-        this.firestore
-          .collection('users')
-          .doc(this.user.uid)
-          .update({ cart: this.bagData });
-      } else {
-        localStorage.setItem('cartDataMediyush', JSON.stringify(this.bagData));
-      }
     }
   }
+
+  saveBagToStorage(bagData) {
+    this.user = JSON.parse(localStorage.getItem('userMed'));
+    console.log(this.user);
+    if (this.user !== null) {
+      this.firestore
+        .collection('users')
+        .doc(this.user.uid)
+        .update({ cart: this.bagData });
+      localStorage.removeItem('cartMediyush');
+    } else {
+      localStorage.setItem('cartMediyush', JSON.stringify(this.bagData));
+    }
+  }
+
+  removeBagFromStorage(bagData) {
+    this.user = JSON.parse(localStorage.getItem('userMed'));
+    if (this.user !== null) {
+      this.firestore
+        .collection('users')
+        .doc(this.user.uid)
+        .update({ cart: this.bagData });
+      localStorage.removeItem('cartMediyush');
+    } else {
+      localStorage.setItem('cartMediyush', JSON.stringify(this.bagData));
+    }
+  }
+
+  // other functions
 
   addBooking(data) {
     this.totalPrice = 0;

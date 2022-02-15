@@ -30,11 +30,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
     this.bag = this.firebaseService.bagData;
     this.allCourses = this.firebaseService.coursesAll;
 
-    this.bag.forEach((element) => {
-      if (this.allCourses.find((e) => e.id == element.id)) {
-        this.allCourses.find((e) => e.id == element.id).inBag = element.inBag;
-      }
-    });
+    if (this.bag !== undefined) {
+      this.bag.forEach((element) => {
+        if (this.allCourses.find((e) => e.id == element.id)) {
+          this.allCourses.find((e) => e.id == element.id).inBag = element.inBag;
+        }
+      });
+    }
+
     this.courses.forEach((element) => {
       this.categories.push({
         option: element.category,
@@ -62,11 +65,11 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   addToBag(data) {
     this.firebaseService.addToBag(data);
-    this.messageService.add({
-      key: 'success',
-      severity: 'success',
-      summary: 'Course Added',
-    });
+    // this.messageService.add({
+    //   key: 'success',
+    //   severity: 'success',
+    //   summary: 'Course Added',
+    // });
   }
 
   assignOnlyCourses(data) {

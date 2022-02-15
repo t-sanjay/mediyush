@@ -52,7 +52,7 @@
       <div class="divider-2 mb-30"></div>
       <div class="cart-action d-flex justify-content-between">
         <a class="btn" [routerLink]="['/dashboard/courses']"
-          ><i class="fi-rs-arrow-left mr-10"></i>Continue Shopping</a
+          ><i class="fi-rs-arrow-left mr-10"></i>Courses</a
         >
       </div>
     </div>
@@ -75,7 +75,7 @@
         <a (click)="createRzpayOrder()" class="btn mb-20 w-100" *ngIf="loggedIn"
           >Proceed To CheckOut<i class="fi-rs-sign-out ml-15"></i
         ></a>
-        <a *ngIf="!loggedIn" class="btn m-3">
+        <a *ngIf="!loggedIn" class="m-3">
           Please Sign-Up or Sign-In to Checkout</a
         >
         <a *ngIf="!loggedIn" class="btn m-3" [routerLink]="['/sign-up']">
