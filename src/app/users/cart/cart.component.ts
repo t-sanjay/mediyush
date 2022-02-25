@@ -98,6 +98,9 @@ export class CartComponent implements OnInit {
         ' and Payment Id ' +
         response.razorpay_payment_id,
     });
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 
   removeCourse(course) {

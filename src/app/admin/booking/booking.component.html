@@ -1,66 +1,84 @@
 <app-menu [activeState]="'Booking'"></app-menu>
 
-<form>
-  <div>
-    <div class="container my-5">
-      <p-table
-        #dt
-        [value]="bookings"
-        dataKey="id"
-        [rowHover]="true"
-        [rows]="10"
-        [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[5, 10, 25, 50]"
-        [paginator]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-        [filterDelay]="0"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th pSortableColumn="courseName">
-              Booking Id <p-sortIcon field="courseName"></p-sortIcon>
-            </th>
-            <th pSortableColumn="category">
-              Category <p-sortIcon field="catergory"></p-sortIcon>
-            </th>
-            <th pSortableColumn="host">
-              User's Unique ID<p-sortIcon field="host"></p-sortIcon>
-            </th>
-            <th pSortableColumn="courseName ">
-              Course Name <p-sortIcon field="courseName"></p-sortIcon>
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-booking let-i>
-          <tr class="p-selectable-row" [pSelectableRow]="booking">
-            <td>
-              <span class="p-column-title">Booking Id</span>
-              {{ booking.id }}
-            </td>
-            <td>
-              <span class="p-column-title">Category</span>
-              <span class="image-text" *ngFor="let course of booking.courses">
-                <span>{{ course.category }} ,</span></span
-              >
-            </td>
-            <td>
-              <span class="p-column-title">User's UID</span>
-              <span class="image-text">{{ booking.userId }}</span>
-            </td>
-            <td>
-              <span class="p-column-title">Course Name</span>
-              <span class="image-text" *ngFor="let course of booking.courses">
-                <span>{{ course.courseName }} ,</span></span
-              >
-            </td>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="emptymessage">
-          <tr>
-            <td colspan="8">No Bookings found.</td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
+<div class="container my-5 margin-left">
+  <p-dropdown
+    class="dropdown"
+    [options]="bookingType"
+    optionLabel="name"
+    (onChange)="bookingChange($event)"
+  >
+  </p-dropdown>
+</div>
+
+<div *ngIf="bookingCourse">
+  <div class="container my-5">
+    <p-table
+      #dt
+      [value]="bookings"
+      dataKey="id"
+      [rowHover]="true"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[5, 10, 25, 50]"
+      [paginator]="true"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+      [filterDelay]="0"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="courseName">
+            Booking Id <p-sortIcon field="courseName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="courseName ">
+            Course Name <p-sortIcon field="courseName"></p-sortIcon>
+          </th>
+          <th pSortableColumn="category">
+            Category <p-sortIcon field="catergory"></p-sortIcon>
+          </th>
+          <th pSortableColumn="host">
+            User's Name<p-sortIcon field="host"></p-sortIcon>
+          </th>
+          <th pSortableColumn="orderid">
+            Order Id<p-sortIcon field="orderid"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-booking let-i>
+        <tr class="p-selectable-row" [pSelectableRow]="booking">
+          <td>
+            <span class="p-column-title">Booking Id</span>
+            {{ booking.id }}
+          </td>
+          <td>
+            <span class="p-column-title">Course Name</span>
+            <span class="image-text" *ngFor="let course of booking.courses">
+              <span>{{ course.courseName }} ,</span></span
+            >
+          </td>
+          <td>
+            <span class="p-column-title">Category</span>
+            <span class="image-text" *ngFor="let course of booking.courses">
+              <span>{{ course.category }} ,</span></span
+            >
+          </td>
+          <td>
+            <span class="p-column-title">User's name</span>
+            <span class="image-text">{{ displayName(booking.userId) }}</span>
+          </td>
+
+          <td>
+            <span class="p-column-title">Order Id</span>
+            <span class="image-text">{{
+              booking.paymentDetails.razorpay_order_id
+            }}</span>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="8">No Bookings found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
-</form>
+</div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,12 +29,26 @@ export class FirebaseService {
   ) {
     this.readAllCourses();
     this.readAllEvents();
+  }
+
+  loadBagData() {
+    if (JSON.parse(localStorage.getItem('cartMediyush')) !== null) {
+      this.bagData = JSON.parse(localStorage.getItem('cartMediyush'));
+      this.totalPrice = 0;
+      this.bagData.forEach((e) => {
+        this.totalPrice += e.price;
+      });
+      this.totalPriceSource.next(this.totalPrice);
+
+      this.cartSource.next(Object.assign([], this.bagData));
+    }
 
     if (JSON.parse(localStorage.getItem('userMed')) !== null) {
       this.firestore
         .collection('users')
         .doc(JSON.parse(localStorage.getItem('userMed')).uid)
-        .snapshotChanges()
+        .get()
+        .pipe(map((doc) => doc.data()))
         .subscribe((res) => {
           this.readBagDataFromFireBase(res);
         });
@@ -43,10 +58,21 @@ export class FirebaseService {
   readBagDataFromFireBase(data) {
     if (data.cart !== undefined || null) {
       this.bagData = data.cart;
+      this.totalPrice = 0;
       this.bagData.forEach((e) => {
         this.totalPrice += e.price;
       });
+      if (JSON.parse(localStorage.getItem('cartMediyush')) !== null) {
+        this.bagData = JSON.parse(localStorage.getItem('cartMediyush'));
+        this.totalPrice = 0;
+        this.bagData.forEach((e) => {
+          this.totalPrice += e.price;
+        });
+        this.totalPriceSource.next(this.totalPrice);
 
+        this.cartSource.next(Object.assign([], this.bagData));
+      }
+      this.totalPriceSource.next(this.totalPrice);
       this.cartSource.next(Object.assign([], this.bagData));
     }
   }
@@ -203,6 +229,8 @@ export class FirebaseService {
     });
     this.cartSource.next(Object.assign([], this.bagData));
     this.bagData = [];
+    this.removeBagFromStorage(this.bagData);
+
     this.cartSource.next(Object.assign([], this.bagData));
 
     return new Promise<any>((resolve, reject) => {

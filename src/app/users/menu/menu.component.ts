@@ -34,6 +34,7 @@ export class MenuComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.firebaseService.loadBagData();
     this.loggedIn = localStorage.getItem('userMed') ? true : false;
     this.firebaseService.cartObserver$.subscribe((res) => {
       this.cart(res);
@@ -131,5 +132,8 @@ export class MenuComponent implements OnInit {
         ' and Payment Id ' +
         response.razorpay_payment_id,
     });
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
   }
 }

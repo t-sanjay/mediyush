@@ -9,10 +9,19 @@ import { MessageService, PrimeNGConfig } from 'primeng/api';
   providers: [MessageService],
 })
 export class AppComponent implements OnInit {
+  loader = true;
+
   constructor(private primengConfig: PrimeNGConfig, private router: Router) {}
   ngOnInit(): void {
     this.primengConfig.ripple = true;
     this.router.navigate(['']);
+
+    setTimeout(() => {
+      this.hideLoader();
+    }, 1500);
+  }
+  hideLoader() {
+    this.loader = false;
   }
   title = 'Mediyush';
 }

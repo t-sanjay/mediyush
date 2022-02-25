@@ -30,6 +30,11 @@ export class BlogsComponent implements OnInit {
     this.firebaseService.readBlogs().subscribe((res) => this.getAll(res));
     this.primengConfig.ripple = true;
   }
+  isReadMore = true;
+
+  showText() {
+    this.isReadMore = !this.isReadMore;
+  }
 
   getAll(data) {
     this.blogsData = data;

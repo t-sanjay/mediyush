@@ -66,7 +66,7 @@
             <th pSortableColumn="category">
               Category <p-sortIcon field="catergory"></p-sortIcon>
             </th>
-            <th pSortableColumn="description">
+            <th style="width: 25rem" pSortableColumn="description">
               Description <p-sortIcon field="description"></p-sortIcon>
             </th>
             <th pSortableColumn="authoredBy">
@@ -78,7 +78,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-blog>
-          <tr class="p-selectable-row" (click)="updateItem(blog)">
+          <tr class="p-selectable-row">
             <td>
               <p-checkbox
                 name="blog.blogName"
@@ -86,23 +86,33 @@
                 (onChange)="selectedBlogs(blog)"
               ></p-checkbox>
             </td>
-            <td>
+            <td (click)="updateItem(blog)">
               <span class="p-column-title">Blog Name</span>
               {{ blog.blogName }}
             </td>
-            <td>
+            <td (click)="updateItem(blog)">
               <span class="p-column-title">Category</span>
               <span class="image-text">{{ blog.category }}</span>
             </td>
             <td>
               <span class="p-column-title">Description</span>
-              <span class="image-text">{{ blog.description }}</span>
+              <span class="image-text"
+                ><p
+                  class="single-excerpt"
+                  [ngClass]="{ limitTextHeight: isReadMore }"
+                >
+                  {{ blog.description }}
+                </p>
+                <p class="text-info" (click)="showText()">
+                  {{ isReadMore ? ".....Read More" : ".....Read Less" }}
+                </p></span
+              >
             </td>
-            <td>
+            <td (click)="updateItem(blog)">
               <span class="p-column-title">Author</span>
               {{ blog.author }}
             </td>
-            <td>
+            <td (click)="updateItem(blog)">
               <span class="p-column-title">Status</span>
               <span>{{ blog.status }}</span>
             </td>

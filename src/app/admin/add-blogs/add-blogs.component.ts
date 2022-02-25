@@ -26,7 +26,7 @@ export class AddBlogsComponent implements OnInit, OnChanges {
   addBlog = new FormGroup({
     blogName: new FormControl('', Validators.required),
     category: new FormControl('', Validators.required),
-    description: new FormControl('', Validators.required),
+    description: new FormControl('', [Validators.required]),
     author: new FormControl('', Validators.required),
     status: new FormControl('', Validators.required),
     fileName: new FormControl(),

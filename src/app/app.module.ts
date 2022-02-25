@@ -25,6 +25,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { SpinnerInterceptor } from './interceptors/SpinnerInterceptor';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { TestcompComponent } from './testcomp/testcomp.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     SignupComponent,
     ForgotpasswordComponent,
     SpinnerComponent,
+    TestcompComponent,
   ],
   imports: [
     BrowserModule,

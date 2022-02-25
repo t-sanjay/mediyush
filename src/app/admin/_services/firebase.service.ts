@@ -7,6 +7,7 @@ import {
 } from '@angular/fire/storage';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -209,5 +210,9 @@ export class FirebaseService {
 
   readAllBookings() {
     return this.firestore.collection('booking').valueChanges({ idField: 'id' });
+  }
+
+  readUserName(uid) {
+    return this.firestore.collection('users').doc(uid).valueChanges();
   }
 }

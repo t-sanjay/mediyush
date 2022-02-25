@@ -1,0 +1,8 @@
+.limitTextHeight {
+  height: 100px;
+  overflow: hidden;
+}
+.buzz-banner {
+  width: 700px;
+  max-width: 100%;
+}

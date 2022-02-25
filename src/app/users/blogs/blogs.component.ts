@@ -19,6 +19,12 @@ export class BlogsComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  isReadMore = true;
+
+  showText() {
+    this.isReadMore = !this.isReadMore;
+  }
+
   getData(data) {
     this.blogsData = data;
     this.blogsData.forEach((element) => {
