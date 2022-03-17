@@ -75,6 +75,7 @@ export class AuthService {
   signOut() {
     return this.afAuth.signOut().then(() => {
       localStorage.removeItem('userMed');
+      location.reload();
     });
   }
 }

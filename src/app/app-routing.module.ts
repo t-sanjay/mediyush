@@ -4,6 +4,7 @@ import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.compone
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TestcompComponent } from './testcomp/testcomp.component';
+import { AdminGuardGuard } from './_guard/admin-guard.guard';
 import { AuthGuard } from './_guard/auth.guard';
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ForgotpasswordComponent },
   {
     path: 'dashboard-admin',
-    canActivate: [AuthGuard],
+    canActivate: [AdminGuardGuard],
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },

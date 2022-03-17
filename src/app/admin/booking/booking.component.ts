@@ -12,21 +12,39 @@ export class BookingComponent implements OnInit {
   users = [];
 
   bookingType = [
-    { name: 'Booked Events', value: 1 },
     { name: 'Booked Courses', value: 2 },
+
+    { name: 'Booked Events', value: 1 },
   ];
 
-  bookingCourse: boolean = false;
+  bookingCourse: boolean = true;
+
+  bookingsData = [];
 
   constructor(private firebaseService: FirebaseService) {}
 
   ngOnInit(): void {
     this.firebaseService.readAllBookings().subscribe((res) => this.getAll(res));
+
     this.firebaseService.readUsers().subscribe((res) => {
       this.allUsers(res);
     });
   }
   getAll(data) {
+    this.bookings = data;
+    this.bookings.forEach((res) => {
+      res.courses.forEach((e) => {
+        if (e.courseName) {
+          e.userId = res.userId;
+          e.id = res.paymentDetails.razorpay_order_id;
+          e.bookedDateTime = res.bookedDateTime;
+
+          this.bookingsData.push(e);
+        }
+      });
+    });
+  }
+  getAllBooking(data) {
     this.bookings = data;
   }
 
@@ -39,12 +57,38 @@ export class BookingComponent implements OnInit {
   }
 
   bookingChange(event) {
-    console.log(event.value.value);
-
+    this.firebaseService
+      .readAllBookings()
+      .subscribe((res) => this.getAllBooking(res));
+    this.bookingsData = [];
     if (event.value.value == 2) {
       this.bookingCourse = true;
+      this.bookings.forEach((res) => {
+        res.courses.forEach((e) => {
+          if (e.courseName) {
+            e.userId = res.userId;
+            e.id = res.paymentDetails.razorpay_order_id;
+            e.bookedDateTime = res.bookedDateTime;
+
+            this.bookingsData.push(e);
+          }
+        });
+      });
     } else {
       this.bookingCourse = false;
+      this.bookings.forEach((res) => {
+        res.courses.forEach((e) => {
+          if (e.eventName) {
+            e.userId = res.userId;
+            e.id = res.paymentDetails.razorpay_order_id;
+            e.bookedDateTime = res.bookedDateTime;
+            this.bookingsData.push(e);
+          }
+        });
+      });
     }
+    this.bookings = [];
+    this.bookings = this.bookingsData;
+    console.log(this.bookingsData);
   }
 }

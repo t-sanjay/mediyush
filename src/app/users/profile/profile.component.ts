@@ -20,6 +20,18 @@ export class ProfileComponent implements OnInit {
   userBookingsRaw = [];
   userBookings = [];
 
+  bookings = [];
+
+  bookingType = [
+    { name: 'Booked Courses', value: 2 },
+
+    { name: 'Booked Events', value: 1 },
+  ];
+
+  bookingCourse: boolean = true;
+
+  bookingsData = [];
+
   @ViewChild('dt') table: Table;
 
   constructor(
@@ -47,19 +59,16 @@ export class ProfileComponent implements OnInit {
   }
 
   getRawBookingsData(data) {
-    this.userBookingsRaw = data;
+    this.bookings = data;
+    this.bookings.forEach((res) => {
+      res.courses.forEach((e) => {
+        if (e.courseName) {
+          e.userId = res.userId;
+          e.id = res.paymentDetails.razorpay_order_id;
+          e.bookedDateTime = res.bookedDateTime;
 
-    this.userBookingsRaw.forEach((element) => {
-      element.courses.forEach((courses) => {
-        this.userBookings.push({
-          courseName: courses.courseName,
-          category: courses.category,
-          host: courses.host,
-          duration: courses.duration,
-          date: courses.date,
-          price: courses.price,
-          orderId: element.paymentDetails.razorpay_order_id,
-        });
+          this.bookingsData.push(e);
+        }
       });
     });
   }
@@ -71,5 +80,49 @@ export class ProfileComponent implements OnInit {
       summary: 'Details Updated',
       detail: 'Name is updated',
     });
+  }
+
+  getAllBooking(data) {
+    this.bookings = data;
+  }
+
+  bookingChange(event) {
+    this.firebaseService
+      .getMyBookings(this.user[0].uid)
+      .subscribe((res) => this.getAllBooking(res));
+    this.bookingsData = [];
+    if (event.value.value == 2) {
+      this.bookingCourse = true;
+      this.bookings.forEach((res) => {
+        res.courses.forEach((e) => {
+          if (e.courseName) {
+            e.userId = res.userId;
+            e.id = res.paymentDetails.razorpay_order_id;
+            e.bookedDateTime = res.bookedDateTime;
+
+            this.bookingsData.push(e);
+          }
+        });
+      });
+    } else {
+      this.bookingCourse = false;
+      this.bookings.forEach((res) => {
+        res.courses.forEach((e) => {
+          if (e.eventName) {
+            e.userId = res.userId;
+            e.id = res.paymentDetails.razorpay_order_id;
+            e.bookedDateTime = res.bookedDateTime;
+            this.bookingsData.push(e);
+          }
+        });
+      });
+    }
+    this.bookings = [];
+    this.bookings = this.bookingsData;
+    console.log(this.bookingsData);
+  }
+
+  displayName(uid) {
+    return this.user.filter((e) => e.uid === uid)[0].displayName;
   }
 }

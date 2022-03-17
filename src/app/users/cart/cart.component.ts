@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { WindowRefService } from 'src/app/window-ref.service';
 import { FirebaseService } from '../_serivces/firebase.service';
@@ -15,11 +16,14 @@ export class CartComponent implements OnInit {
   totalPrice = 0;
   loggedIn: boolean;
 
+  user: any;
+
   constructor(
     private firebaseService: FirebaseService,
     private payment: PaymentService,
     private messageService: MessageService,
-    private winRef: WindowRefService
+    private winRef: WindowRefService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +34,10 @@ export class CartComponent implements OnInit {
     });
     this.firebaseService.totalPriceObserver$.subscribe((res) => {
       this.totalPrice = res;
+    });
+    this.user = JSON.parse(localStorage.getItem('userMed'));
+    this.firebaseService.getUserDetails(this.user.uid).subscribe((res) => {
+      this.getUser(res);
     });
   }
 
@@ -42,6 +50,10 @@ export class CartComponent implements OnInit {
       amount: this.totalPrice.toString() + '00',
     };
     this.payment.createOrder(data).subscribe((res) => this.payWithRazor(res));
+  }
+
+  getUser(data) {
+    this.user = data;
   }
 
   payWithRazor(val) {
@@ -57,6 +69,10 @@ export class CartComponent implements OnInit {
         // We should prevent closing of the form when esc key is pressed.
         escape: false,
       },
+      prefill: {
+        email: this.user[0].email,
+        name: this.user[0].displayName,
+      },
       notes: {
         // include notes if any
       },
@@ -67,8 +83,6 @@ export class CartComponent implements OnInit {
     options.handler = (response, error) => {
       options.response = response;
       this.paymentSuccess(response);
-      console.log(response);
-      console.log(options);
       // call your backend api to verify payment signature & capture transaction
     };
     options.modal.ondismiss = () => {
@@ -83,12 +97,6 @@ export class CartComponent implements OnInit {
   }
 
   paymentSuccess(response) {
-    let data = {
-      courses: this.cartData,
-      paymentDetails: response,
-      userId: JSON.parse(localStorage.getItem('userMed')).uid,
-    };
-    this.firebaseService.addBooking(data);
     this.messageService.add({
       severity: 'success',
       summary: 'Transction was Successfull',
@@ -101,6 +109,12 @@ export class CartComponent implements OnInit {
     setTimeout(() => {
       window.location.reload();
     }, 3000);
+    let data = {
+      courses: this.cartData,
+      paymentDetails: response,
+      userId: JSON.parse(localStorage.getItem('userMed')).uid,
+    };
+    this.firebaseService.addBooking(data);
   }
 
   removeCourse(course) {

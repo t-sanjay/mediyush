@@ -96,92 +96,103 @@
                       <h3 class="mb-0">Your Orders</h3>
                     </div>
                     <div class="card-body">
+                      <div class="container margin-left">
+                        <p-dropdown
+                          class="dropdown"
+                          [options]="bookingType"
+                          optionLabel="name"
+                          (onChange)="bookingChange($event)"
+                        >
+                        </p-dropdown>
+                      </div>
                       <div class="table-responsive">
                         <p-table
                           #dt
+                          [value]="bookingsData"
                           dataKey="id"
-                          [value]="userBookings"
                           [rowHover]="true"
                           [rows]="10"
-                          [showCurrentPageReport]="false"
+                          [showCurrentPageReport]="true"
                           [rowsPerPageOptions]="[5, 10, 25, 50]"
-                          [paginator]="false"
+                          [paginator]="true"
+                          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
                           [filterDelay]="0"
                         >
                           <ng-template pTemplate="header">
                             <tr>
-                              <th pSortableColumn="courseName">
+                              <th pSortableColumn="bookingId">Booking Id</th>
+                              <th
+                                pSortableColumn="courseName"
+                                *ngIf="!bookingCourse"
+                              >
+                                Event Name
+                              </th>
+                              <th
+                                pSortableColumn="courseName"
+                                *ngIf="bookingCourse"
+                              >
                                 Course Name
-                                <p-sortIcon field="courseName"></p-sortIcon>
                               </th>
-                              <th pSortableColumn="category">
+                              <th
+                                pSortableColumn="category"
+                                *ngIf="!bookingCourse"
+                              >
+                                Venue
+                              </th>
+                              <th
+                                pSortableColumn="category"
+                                *ngIf="bookingCourse"
+                              >
                                 Category
-                                <p-sortIcon field="catergory"></p-sortIcon>
                               </th>
-                              <th pSortableColumn="host">
-                                Host <p-sortIcon field="host"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="duration">
-                                Duration
-                                <p-sortIcon field="duration"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="date">
-                                Date <p-sortIcon field="date"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="price">
-                                Price <p-sortIcon field="price"></p-sortIcon>
-                              </th>
-                              <th pSortableColumn="orderId">
-                                Order Id
-                                <p-sortIcon field="orderId"></p-sortIcon>
+                              <th pSortableColumn="dateTime">
+                                Booked Date Time
                               </th>
                             </tr>
                           </ng-template>
-                          <ng-template pTemplate="body" let-course>
+                          <ng-template pTemplate="body" let-booking let-i>
                             <tr class="p-selectable-row">
                               <td>
+                                <span class="p-column-title">Booking Id</span>
+                                {{ booking.id }}
+                              </td>
+                              <td *ngIf="!bookingCourse">
+                                <span class="p-column-title">Event Name</span>
+                                <span class="image-text">
+                                  <span>{{ booking.eventName }}</span></span
+                                >
+                              </td>
+                              <td *ngIf="bookingCourse">
                                 <span class="p-column-title">Course Name</span>
-                                {{ course.courseName }}
+                                <span class="image-text">
+                                  <span>{{ booking.courseName }}</span></span
+                                >
                               </td>
-                              <td>
+                              <td *ngIf="!bookingCourse">
+                                <span class="p-column-title">Venue</span>
+                                <span class="image-text">
+                                  <span>{{ booking.venue }}</span></span
+                                >
+                              </td>
+                              <td *ngIf="bookingCourse">
                                 <span class="p-column-title">Category</span>
-                                <span class="image-text">{{
-                                  course.category
-                                }}</span>
-                              </td>
-                              <td>
-                                <span class="p-column-title">Host</span>
-                                <span class="image-text">{{
-                                  course.host
-                                }}</span>
-                              </td>
-                              <td>
-                                <span class="p-column-title">Duration</span>
-                                <span class="image-text"
-                                  >{{ course.duration }} hrs</span
+                                <span class="image-text">
+                                  <span>{{ booking.category }}</span></span
                                 >
                               </td>
                               <td>
-                                <span class="p-column-title">Date</span>
-                                {{
-                                  course.date.toDate()
-                                    | date: "EEEE, MMMM d, yyyy h:mm a"
-                                }}
-                              </td>
-                              <td>
-                                <span class="p-column-title">Price</span>
-                                <span>{{ course.price }}</span>
-                              </td>
-
-                              <td>
-                                <span class="p-column-title">Order Id</span>
-                                <span>{{ course.orderId }}</span>
+                                <span class="p-column-title"
+                                  >Booked Date Time</span
+                                >
+                                <span class="image-text">{{
+                                  booking.bookedDateTime | date: "short"
+                                }}</span>
                               </td>
                             </tr>
                           </ng-template>
                           <ng-template pTemplate="emptymessage">
                             <tr>
-                              <td colspan="12">No Bookings found.</td>
+                              <td colspan="8">No Bookings found.</td>
                             </tr>
                           </ng-template>
                         </p-table>

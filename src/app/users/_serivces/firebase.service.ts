@@ -233,6 +233,8 @@ export class FirebaseService {
 
     this.cartSource.next(Object.assign([], this.bagData));
 
+    data.bookedDateTime = Date.now();
+
     return new Promise<any>((resolve, reject) => {
       this.firestore
         .collection('booking')
