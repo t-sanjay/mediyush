@@ -100,8 +100,6 @@ export class MenuComponent implements OnInit {
     options.handler = (response, error) => {
       options.response = response;
       this.paymentSuccess(response);
-      console.log(response);
-      console.log(options);
       // call your backend api to verify payment signature & capture transaction
     };
     options.modal.ondismiss = () => {
@@ -132,8 +130,5 @@ export class MenuComponent implements OnInit {
         ' and Payment Id ' +
         response.razorpay_payment_id,
     });
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
   }
 }

@@ -59,6 +59,8 @@
 
 .single-hero-slider {
   border-radius: 0;
+  background-repeat: no-repeat;
+  background-size: 95%;
 }
 
 .display-2 {
@@ -103,4 +105,15 @@
 
 .learn-more {
   border: 1px solid blueviolet;
+}
+
+
+.test{
+  width: 100%;
+  height: 500px;
+  background-color: #73bf9d;
+}
+.banner{
+  width: 30%;
+  height: auto;
 }

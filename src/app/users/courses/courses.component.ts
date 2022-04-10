@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { FirebaseService } from '../_serivces/firebase.service';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-courses',
@@ -11,15 +12,26 @@ export class CoursesComponent implements OnInit, OnDestroy {
   courses: any[];
   bag = [];
 
-  categories = [{ option: null, label: 'All' }];
+  categories = [
+    { option: null, label: 'All' },
+    { option: 'MBBS', label: 'MBBS' },
+    { option: 'BDS', label: 'BDS' },
+    { option: 'BAMS', label: 'BAMS' },
+    { option: 'BHMS', label: 'BHMS' },
+    { option: 'Paramedical', label: 'Paramedical' },
+    { option: 'TIA Academy', label: 'TIA Academy' },
+  ];
 
   categoryDisplay: boolean = true;
 
   allCourses = [];
 
+  isReadMore: boolean;
+
   constructor(
     private firebaseService: FirebaseService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private afStorage: AngularFireStorage
   ) {}
   ngOnDestroy(): void {
     this.categories = [];
@@ -37,13 +49,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
         }
       });
     }
-
-    this.courses.forEach((element) => {
-      this.categories.push({
-        option: element.category,
-        label: element.category,
-      });
-    });
 
     this.firebaseService.cartObserver$.subscribe((res) => {
       this.readFromBag(res);
@@ -65,11 +70,6 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   addToBag(data) {
     this.firebaseService.addToBag(data);
-    // this.messageService.add({
-    //   key: 'success',
-    //   severity: 'success',
-    //   summary: 'Course Added',
-    // });
   }
 
   assignOnlyCourses(data) {
@@ -77,6 +77,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
       if (this.allCourses.find((e) => e.id == element.id)) {
         element.inBag = this.allCourses.find((e) => e.id == element.id).inBag;
       }
+    });
+    data.forEach((element) => {
+      this.afStorage
+        .ref(element.fileName)
+        .getDownloadURL()
+        .subscribe((res) => {
+          element.fileName = res;
+        });
     });
     this.courses = data;
   }

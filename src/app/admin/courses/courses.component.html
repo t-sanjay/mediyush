@@ -89,7 +89,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-course>
-          <tr class="p-selectable-row" (click)="updateItem(course)">
+          <tr class="p-selectable-row">
             <td>
               <p-checkbox
                 name="course.courseName"
@@ -97,36 +97,38 @@
                 (onChange)="selectedCourses(course)"
               ></p-checkbox>
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Course Name</span>
               {{ course.courseName }}
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Category</span>
               <span class="image-text">{{ course.category }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Description</span>
-              <span class="image-text">{{ course.description }}</span>
+              <span class="image-text">
+                <p class="limitTextHeight">{{ course.description }}</p></span
+              >
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Host</span>
               <span class="image-text">{{ course.host }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Duration</span>
               <span class="image-text">{{ course.duration }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Date</span>
               {{ course.date.toDate() | date: "EEEE, MMMM d, yyyy h:mm a" }}
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Price</span>
               <span>{{ course.price }}</span>
             </td>
 
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Show On First Page</span>
               <span>{{ course.showOnFirstPage }}</span>
             </td>

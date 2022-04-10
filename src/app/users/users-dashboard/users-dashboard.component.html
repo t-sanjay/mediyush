@@ -226,8 +226,8 @@
         <div class="totall-product">
           <p>
             We found
-            <strong class="text-brand">{{ courses.length }}</strong> courses for
-            you!
+            <strong class="text-brand">{{ courses?.length }}</strong> courses
+            for you!
           </p>
         </div>
         <div class="sort-by-product-area">
@@ -272,13 +272,6 @@
                     }}</a>
                   </h2>
                   <div class="product-rate-cover"></div>
-                  <p class="mt-15 mb-15">
-                    {{ course.description }}
-                  </p>
-
-                  <div class="product-price">
-                    <span>₹{{ course.price }} </span>
-                  </div>
 
                   <div class="mt-30">
                     <a [routerLink]="['/dashboard/courses']">
@@ -348,6 +341,30 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="container m-b-50">
+  <p-carousel
+    [value]="partners"
+    [autoplayInterval]="5000"
+    [circular]="true"
+    [showIndicators]="false"
+    [showNavigators]="false"
+    [numVisible]="2"
+    [style]="{ 'margin-top': '2em' }"
+    verticalViewPortHeight="250px"
+  >
+    <ng-template pTemplate="header">
+      <h4 class="mb-15">Associated Partners</h4>
+    </ng-template>
+    <ng-template let-partner pTemplate="item">
+      <div class="d-flex justify-content-center">
+        <div class="text-center">
+          <img class="banner" src="{{ partner }}" alt="" />
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
 </div>
 
 <app-footer></app-footer>

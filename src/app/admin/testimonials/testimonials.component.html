@@ -76,7 +76,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-testimony>
-          <tr class="p-selectable-row" (click)="updateItem(testimony)">
+          <tr class="p-selectable-row">
             <td>
               <p-checkbox
                 name="testimony.doctorsName"
@@ -84,19 +84,19 @@
                 (onChange)="selectedTestimonies(testimony)"
               ></p-checkbox>
             </td>
-            <td>
+            <td (click)="updateItem(testimony)">
               <span class="p-column-title">Doctor's Name</span>
               {{ testimony.testimonyName }}
             </td>
-            <td>
+            <td (click)="updateItem(testimony)">
               <span class="p-column-title">Category</span>
               <span class="image-text">{{ testimony.description }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(testimony)">
               <span class="p-column-title">Designation</span>
               <span class="image-text">{{ testimony.designation }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(testimony)">
               <span class="p-column-title">Date</span>
               <span class="image-text">{{
                 testimony.date.toDate() | date: "EEEE, MMMM d, yyyy h:mm a"

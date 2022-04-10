@@ -4,7 +4,7 @@
   <div class="page-header breadcrumb-wrap">
     <div class="container">
       <div class="breadcrumb">
-        <a rel="nofollow"><i class="fi-rs-home mr-5"></i>Home</a>
+        <a [routerLink]="''"><i class="fi-rs-home mr-5"></i>Home</a>
         <span></span> <a>Buzz</a> <span></span>
       </div>
     </div>
@@ -42,6 +42,7 @@
                   <p
                     class="single-excerpt"
                     [ngClass]="{ limitTextHeight: isReadMore }"
+                    style="white-space: pre-line"
                   >
                     {{ blog.description }}
                   </p>

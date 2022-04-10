@@ -7584,7 +7584,7 @@ h6.post-title {
   right: 0;
   top: calc(100% + 20px);
   z-index: 99;
-  width: 320px;
+  width: 30%;
   background-color: #fff;
   -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.05);

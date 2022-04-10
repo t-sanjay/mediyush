@@ -14,11 +14,6 @@ export class AppComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig, private router: Router) {}
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.router.navigate(['']);
-
-    setTimeout(() => {
-      this.hideLoader();
-    }, 15000);
   }
   hideLoader() {
     this.loader = false;

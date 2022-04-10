@@ -101,16 +101,17 @@
 
     <div class="field col-12 md:col-10 lg:col-10">
       <label for="duration" class="control-label required"
-        >Duration <span>(in hours)</span></label
+        >Duration <span>(Write Hours/Days/Months/Years)</span></label
       >
 
       <input
         pInputText
         id="duration"
-        type="number"
+        type="text"
         class="inputfield w-full"
         formControlName="duration"
         formControlValidator
+        placeholder="12 Days/12 Hours/12 Months"
       />
       <span
         class="text-danger"
@@ -158,7 +159,12 @@
       <label for="description" class="control-label"
         >Image to be Displayed for Banner</label
       >
-      <input type="file" (change)="uploadImages($event)" accept=".png,.jpg" />
+      <input
+        type="file"
+        (change)="uploadImages($event)"
+        accept=".png,.jpg,.jpeg"
+        formControlName="fileupload"
+      />
     </div>
 
     <div class="field col-12 md:col-10 lg:col-10">

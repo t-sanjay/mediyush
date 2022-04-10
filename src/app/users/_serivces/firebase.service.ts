@@ -45,7 +45,7 @@ export class FirebaseService {
 
     if (JSON.parse(localStorage.getItem('userMed')) !== null) {
       this.firestore
-        .collection('users')
+        .collection('cart')
         .doc(JSON.parse(localStorage.getItem('userMed')).uid)
         .get()
         .pipe(map((doc) => doc.data()))
@@ -106,6 +106,12 @@ export class FirebaseService {
     });
   }
 
+  readCoursesByCategory(category) {
+    return this.firestore
+      .collection('courses', (ref) => ref.where('category', '==', category))
+      .valueChanges({ idField: 'id' });
+  }
+
   readAllEvents() {
     return this.firestore
       .collection('event')
@@ -133,7 +139,7 @@ export class FirebaseService {
       this.totalPriceSource.next(this.totalPrice);
       this.coursesAll.find((e) => e.id == data.id).inBag = true;
       this.bagData.push(data);
-      this.saveBagToStorage(this.bagData);
+      this.saveBagToStorage();
       this.cartSource.next(Object.assign([], this.bagData));
     }
   }
@@ -146,7 +152,7 @@ export class FirebaseService {
       this.totalPriceSource.next(this.totalPrice);
       this.eventsAll.find((e) => e == data).inBag = true;
       this.bagData.push(data);
-      this.saveBagToStorage(this.bagData);
+      this.saveBagToStorage();
       this.cartSource.next(Object.assign([], this.bagData));
     }
   }
@@ -176,7 +182,10 @@ export class FirebaseService {
   removeFromBag(course) {
     this.coursesAll.find((e) => e.id == course.id).inBag = false;
 
-    if (this.bagData.find((e) => e.id == course.id) !== {} || null) {
+    if (
+      this.bagData.find((e) => e.id == course.id) !== {} ||
+      this.bagData.find((e) => e.id == course.id) !== null
+    ) {
       this.totalPrice -= course.price;
       if (this.totalPrice < 0) {
         this.totalPrice = 0;
@@ -192,14 +201,17 @@ export class FirebaseService {
     }
   }
 
-  saveBagToStorage(bagData) {
+  saveBagToStorage() {
     this.user = JSON.parse(localStorage.getItem('userMed'));
-    console.log(this.user);
-    if (this.user !== null) {
+    if (this.user) {
       this.firestore
-        .collection('users')
+        .collection('cart')
         .doc(this.user.uid)
-        .update({ cart: this.bagData });
+        .set({ cart: this.bagData }, { merge: true });
+      // this.firestore
+      //   .collection('users')
+      //   .doc(this.user.uid)
+      //   .set({ cart: this.bagData }, { merge: true });
       localStorage.removeItem('cartMediyush');
     } else {
       localStorage.setItem('cartMediyush', JSON.stringify(this.bagData));
@@ -208,11 +220,15 @@ export class FirebaseService {
 
   removeBagFromStorage(bagData) {
     this.user = JSON.parse(localStorage.getItem('userMed'));
-    if (this.user !== null) {
+    if (this.user) {
       this.firestore
-        .collection('users')
+        .collection('cart')
         .doc(this.user.uid)
-        .update({ cart: this.bagData });
+        .set({ cart: this.bagData }, { merge: true });
+      // this.firestore
+      //   .collection('users')
+      //   .doc(this.user.uid)
+      //   .set({ cart: this.bagData }, { merge: true });
       localStorage.removeItem('cartMediyush');
     } else {
       localStorage.setItem('cartMediyush', JSON.stringify(this.bagData));
@@ -260,12 +276,6 @@ export class FirebaseService {
     return this.firestore.collection('blogs').valueChanges();
   }
 
-  readCoursesByCategory(category) {
-    return this.firestore
-      .collection('courses', (ref) => ref.where('category', '==', category))
-      .valueChanges({ idField: 'id' });
-  }
-
   updateUserName(name) {
     let user = JSON.parse(localStorage.getItem('userMed'));
     this.firestore
@@ -279,4 +289,30 @@ export class FirebaseService {
       .collection('users', (ref) => ref.where('uid', '==', uid))
       .valueChanges();
   }
+
+  sendEmail(courseData){
+    const nodeMailer = require('nodeMailer');
+    let transporter = nodeMailer.createTransport({
+    host: 'smtp.zoho.in',
+    secure: true,
+    port: 465,
+    auth: {
+      user: 'support@mediyush.com',
+      pass: 'Support@123',
+    },
+    });
+    const mailOptions = {
+      from: 'support@mediyush.com', // sender address
+      to: 'sanjaystoge@gmail.com',
+      subject: 'test Email', // Subject line
+      html: '<p>test</p>', 
+     };
+
+     await transporter.sendMail(mailOptions, function(err, info) {
+      if (err) {
+      console.log(err)
+      }
+    }
+  }
+  
 }

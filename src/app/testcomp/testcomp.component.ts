@@ -12,22 +12,22 @@ export class TestcompComponent implements OnInit {
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('userMed'));
-    if (user) {
-      this.authService.getUserData(user).subscribe((res) => {
-        if (res.admin) {
-          setTimeout(() => {
-            this.router.navigateByUrl('dashboard-admin');
-          }, 8000);
-        } else {
-          setTimeout(() => {
-            this.router.navigateByUrl('dashboard');
-          }, 8000);
-        }
-      });
-    } else {
-      setTimeout(() => {
-        this.router.navigateByUrl('dashboard');
-      }, 8000);
-    }
+    // if (user) {
+    //   this.authService.getUserData(user).subscribe((res) => {
+    //     if (res.admin) {
+    //       setTimeout(() => {
+    //         this.router.navigateByUrl('dashboard-admin');
+    //       }, 1000);
+    //     } else {
+    //       setTimeout(() => {
+    //         this.router.navigateByUrl('dashboard');
+    //       }, 1000);
+    //     }
+    //   });
+    // } else {
+    //   setTimeout(() => {
+    //     this.router.navigateByUrl('dashboard');
+    //   }, 1000);
+    // }
   }
 }

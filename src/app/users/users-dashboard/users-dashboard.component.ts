@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/_services/auth.service';
 import { FirebaseService } from '../_serivces/firebase.service';
 
 @Component({
@@ -13,15 +15,33 @@ export class UsersDashboardComponent implements OnInit, OnDestroy {
   testimonies: any[];
   categories = [];
 
+  partners = [
+    '../../../assets/images/partners/partners (1).png',
+    '../../../assets/images/partners/partners.png',
+  ];
+
   constructor(
     private firebaseService: FirebaseService,
-    private afStorage: AngularFireStorage
+    private afStorage: AngularFireStorage,
+    private authService: AuthService,
+    private router: Router
   ) {}
   ngOnDestroy(): void {
     this.categories = [];
   }
 
   ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('userMed'));
+    if (user) {
+      this.authService.getUserData(user).subscribe((res) => {
+        if (res.admin) {
+          this.router.navigateByUrl('dashboard-admin');
+        } else {
+          this.router.navigateByUrl('dashboard');
+        }
+      });
+    }
+
     this.firebaseService.readAds().subscribe((res) => {
       this.getAdsData(res);
     });

@@ -41,6 +41,7 @@ export class AddCoursesComponent implements OnInit, OnChanges {
     showOnFirstPage: new FormControl(false),
     status: new FormControl(true),
     fileName: new FormControl(),
+    fileupload: new FormControl(),
   });
 
   constructor(

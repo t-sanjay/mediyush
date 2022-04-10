@@ -89,6 +89,5 @@ export class BookingComponent implements OnInit {
     }
     this.bookings = [];
     this.bookings = this.bookingsData;
-    console.log(this.bookingsData);
   }
 }

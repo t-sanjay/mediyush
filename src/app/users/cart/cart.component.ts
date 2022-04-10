@@ -27,6 +27,12 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('userMed'));
+    if (this.user !== null) {
+      this.firebaseService.getUserDetails(this.user.uid).subscribe((res) => {
+        this.getUser(res);
+      });
+    }
     this.loggedIn = localStorage.getItem('userMed') ? true : false;
 
     this.firebaseService.cartObserver$.subscribe((res) => {
@@ -34,10 +40,6 @@ export class CartComponent implements OnInit {
     });
     this.firebaseService.totalPriceObserver$.subscribe((res) => {
       this.totalPrice = res;
-    });
-    this.user = JSON.parse(localStorage.getItem('userMed'));
-    this.firebaseService.getUserDetails(this.user.uid).subscribe((res) => {
-      this.getUser(res);
     });
   }
 
@@ -49,7 +51,22 @@ export class CartComponent implements OnInit {
     let data = {
       amount: this.totalPrice.toString() + '00',
     };
-    this.payment.createOrder(data).subscribe((res) => this.payWithRazor(res));
+    if (this.totalPrice == 0) {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Purchase was Successfull',
+        detail:
+          'Your subscription is successful, You will receive the details via email !',
+      });
+      const purchaseData = {
+        courses: this.cartData,
+        paymentDetails: 'Free Course',
+        userId: JSON.parse(localStorage.getItem('userMed')).uid,
+      };
+      this.firebaseService.addBooking(purchaseData);
+    } else {
+      this.payment.createOrder(data).subscribe((res) => this.payWithRazor(res));
+    }
   }
 
   getUser(data) {
@@ -58,7 +75,7 @@ export class CartComponent implements OnInit {
 
   payWithRazor(val) {
     const options: any = {
-      key: 'rzp_test_yQMV8OOrOsIpK2',
+      key: 'rzp_live_T09U9ZkVac10lL',
       amount: this.totalPrice, // amount should be in paise format to display Rs 1255 without decimal point
       currency: 'INR',
       name: '', // company name or product name
@@ -106,9 +123,6 @@ export class CartComponent implements OnInit {
         ' and Payment Id ' +
         response.razorpay_payment_id,
     });
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
     let data = {
       courses: this.cartData,
       paymentDetails: response,
@@ -118,7 +132,7 @@ export class CartComponent implements OnInit {
   }
 
   removeCourse(course) {
-    if (course.eventName != null || undefined) {
+    if (course.eventName) {
       this.firebaseService.removeFromBagEvents(course);
     } else {
       this.firebaseService.removeFromBag(course);

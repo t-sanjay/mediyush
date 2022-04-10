@@ -21,11 +21,11 @@ import { ToastModule } from 'primeng/toast';
 import { ForgotpasswordComponent } from './forgotpassword/forgotpassword.component';
 import { RippleModule } from 'primeng/ripple';
 import { MessageService } from 'primeng/api';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SpinnerComponent } from './spinner/spinner.component';
-import { SpinnerInterceptor } from './interceptors/SpinnerInterceptor';
+import { HttpClientModule } from '@angular/common/http';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { TestcompComponent } from './testcomp/testcomp.component';
+import { AdminModule } from './admin/admin.module';
+import { UsersModule } from './users/users.module';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,6 @@ import { TestcompComponent } from './testcomp/testcomp.component';
     LoginComponent,
     SignupComponent,
     ForgotpasswordComponent,
-    SpinnerComponent,
     TestcompComponent,
   ],
   imports: [
@@ -45,6 +44,8 @@ import { TestcompComponent } from './testcomp/testcomp.component';
     InputTextModule,
     FormsModule,
     ToastModule,
+    AdminModule,
+    UsersModule,
     RippleModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -53,15 +54,7 @@ import { TestcompComponent } from './testcomp/testcomp.component';
     CardModule,
     OverlayModule,
   ],
-  providers: [
-    AuthService,
-    MessageService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: SpinnerInterceptor,
-      multi: true,
-    },
-  ],
+  providers: [AuthService, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

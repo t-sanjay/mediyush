@@ -96,7 +96,11 @@
       <label for="description" class="control-label required"
         >Image to be Displayed for Banner</label
       >
-      <input type="file" (change)="uploadImages($event)" accept=".png,.jpg" />
+      <input
+        type="file"
+        (change)="uploadImages($event)"
+        accept=".png,.jpg,.jpeg"
+      />
     </div>
 
     <div class="field col-12 md:col-10 lg:col-10">

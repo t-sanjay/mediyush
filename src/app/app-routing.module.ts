@@ -5,11 +5,10 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { TestcompComponent } from './testcomp/testcomp.component';
 import { AdminGuardGuard } from './_guard/admin-guard.guard';
-import { AuthGuard } from './_guard/auth.guard';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '', component: TestcompComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  //{ path: '', component: TestcompComponent },
   { path: 'sign-in', component: LoginComponent },
   { path: 'sign-up', component: SignupComponent },
   { path: 'reset-password', component: ForgotpasswordComponent },
@@ -29,6 +28,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule],
-  providers: [AuthGuard],
+  providers: [AdminGuardGuard],
 })
 export class AppRoutingModule {}

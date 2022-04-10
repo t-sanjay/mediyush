@@ -79,7 +79,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-course>
-          <tr class="p-selectable-row" (click)="updateItem(course)">
+          <tr class="p-selectable-row">
             <td>
               <p-checkbox
                 name="course.courseName"
@@ -87,23 +87,23 @@
                 (onChange)="selectedEvents(course)"
               ></p-checkbox>
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Course Name</span>
               {{ course.eventName }}
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Venue</span>
               <span class="image-text">{{ course.venue }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Date</span>
               {{ course.date.toDate() | date: "EEEE, MMMM d, yyyy h:mm a" }}
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Price</span>
               <span>{{ course.price }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(course)">
               <span class="p-column-title">Description</span>
               <span class="image-text">{{ course.details }}</span>
             </td>

@@ -80,7 +80,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-ad>
-          <tr class="p-selectable-row" (click)="updateItem(ad)">
+          <tr class="p-selectable-row">
             <td>
               <p-checkbox
                 name="ad.adsName"
@@ -88,24 +88,24 @@
                 (onChange)="selectedAds(ad)"
               ></p-checkbox>
             </td>
-            <td>
+            <td (click)="updateItem(ad)">
               <span class="p-column-title">Ad's Name</span>
               {{ ad.adsName }}
             </td>
-            <td>
+            <td (click)="updateItem(ad)">
               <span class="p-column-title">Display Name</span>
               {{ ad.displayName }}
             </td>
-            <td>
+            <td (click)="updateItem(ad)">
               <span class="p-column-title">Category</span>
               <span class="image-text">{{ ad.category }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(ad)">
               <span class="p-column-title">Description</span>
               <span class="image-text">{{ ad.description }}</span>
             </td>
 
-            <td>
+            <td (click)="updateItem(ad)">
               <span class="p-column-title">Status</span>
               <span>{{ ad.status }}</span>
             </td>

@@ -72,7 +72,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-doctor>
-          <tr class="p-selectable-row" (click)="updateItem(doctor)">
+          <tr class="p-selectable-row">
             <td>
               <p-checkbox
                 name="doctor.doctorsName"
@@ -80,15 +80,15 @@
                 (onChange)="selectedDoctors(doctor)"
               ></p-checkbox>
             </td>
-            <td>
+            <td (click)="updateItem(doctor)">
               <span class="p-column-title">Doctor's Name</span>
               {{ doctor.doctorsName }}
             </td>
-            <td>
+            <td (click)="updateItem(doctor)">
               <span class="p-column-title">Category</span>
               <span class="image-text">{{ doctor.category }}</span>
             </td>
-            <td>
+            <td (click)="updateItem(doctor)">
               <span class="p-column-title">Designation</span>
               <span class="image-text">{{ doctor.designation }}</span>
             </td>

@@ -1,13 +1,13 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyD7qfaB21qAcCh3wIvmM8_t2T_rHzqx0mc',
-    authDomain: 'mediyush-640cc.firebaseapp.com',
-    projectId: 'mediyush-640cc',
-    storageBucket: 'mediyush-640cc.appspot.com',
-    messagingSenderId: '588074236719',
-    appId: '1:588074236719:web:b802a107d3d8e8d4f2bfda',
-    measurementId: 'G-6M0SXJEEGH',
+    apiKey: 'AIzaSyCPsccVpHJV0jGckp9TG74pRAvsIbkuqcs',
+    authDomain: 'mediyush-6db4a.firebaseapp.com',
+    projectId: 'mediyush-6db4a',
+    storageBucket: 'mediyush-6db4a.appspot.com',
+    messagingSenderId: '945324775731',
+    appId: '1:945324775731:web:2f8f2499f00899c5d60646',
+    measurementId: 'G-B9ZKME63QT',
   },
   mapi: 'https://mapi1.herokuapp.com/',
 };
